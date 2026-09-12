@@ -15,9 +15,9 @@ export default function StyleSearch({ query, onQueryChange }: StyleSearchProps) 
         type="text"
         value={query}
         onChange={(e) => onQueryChange(e.target.value)}
-        placeholder="Filter fonts (e.g. vintage, cursive, gothic, bubble)..."
+        placeholder="Search 240+ fonts..."
         aria-label="Search font styles"
-        className="w-full pl-10 pr-9 py-2 text-sm bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500 transition-all"
+        className="w-full pl-9 pr-8 py-1.5 text-xs sm:text-sm bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500 transition-all"
       />
       {query && (
         <button

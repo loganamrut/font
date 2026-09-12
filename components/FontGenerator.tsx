@@ -2,17 +2,13 @@
 
 import { useState, useMemo, useEffect, useCallback } from "react";
 import TextInput from "./TextInput";
-import CharacterStats from "./CharacterStats";
-import SocialPresets from "./SocialPresets";
 import CategoryFilter from "./CategoryFilter";
 import StyleSearch from "./StyleSearch";
 import StyleGrid from "./StyleGrid";
-import ZalgoControls from "./ZalgoControls";
-import { FONT_STYLES, FontStyleDefinition } from "@/lib/unicode/engine";
-import { CategoryId, SocialPreset } from "@/lib/unicode/categories";
-import { ZalgoIntensity } from "@/lib/unicode/zalgo";
+import { FONT_STYLES } from "@/lib/unicode/engine";
+import { CategoryId } from "@/lib/unicode/categories";
 import { getFavorites, toggleFavorite } from "@/lib/storage/favorites";
-import { Copy, Check, ShieldCheck } from "lucide-react";
+import { Copy, Check } from "lucide-react";
 
 interface FontGeneratorProps {
   initialText?: string;
@@ -22,14 +18,12 @@ interface FontGeneratorProps {
 
 export default function FontGenerator({
   initialText = "Your Text Here",
-  defaultCategory = "popular",
+  defaultCategory = "all",
   defaultSocialPresetId,
 }: FontGeneratorProps) {
   const [inputText, setInputText] = useState(initialText);
   const [activeCategory, setActiveCategory] = useState<CategoryId | "favorites">(defaultCategory);
   const [searchQuery, setSearchQuery] = useState("");
-  const [activePreset, setActivePreset] = useState<SocialPreset | null>(null);
-  const [zalgoIntensity, setZalgoIntensity] = useState<ZalgoIntensity>("medium");
   const [favorites, setFavorites] = useState<string[]>([]);
   const [copiedAll, setCopiedAll] = useState(false);
 
@@ -61,9 +55,10 @@ export default function FontGenerator({
       if (searchQuery.trim() !== "") {
         const query = searchQuery.toLowerCase().trim();
         const matchesName = style.name.toLowerCase().includes(query);
+        const matchesCat = style.cat ? style.cat.toLowerCase().includes(query) : false;
         const matchesDesc = style.description.toLowerCase().includes(query);
         const matchesCats = style.categories.some((c) => c.toLowerCase().includes(query));
-        if (!matchesName && !matchesDesc && !matchesCats) return false;
+        if (!matchesName && !matchesCat && !matchesDesc && !matchesCats) return false;
       }
 
       return true;
@@ -77,14 +72,14 @@ export default function FontGenerator({
 
     for (const style of filteredStyles) {
       if (style.id === "zalgo-glitch") {
-        map.set(style.id, style.transform(textToTransform, { intensity: zalgoIntensity }));
+        map.set(style.id, style.transform(textToTransform, { intensity: "medium" }));
       } else {
         map.set(style.id, style.transform(textToTransform));
       }
     }
 
     return map;
-  }, [inputText, filteredStyles, zalgoIntensity]);
+  }, [inputText, filteredStyles]);
 
   // "Copy All" implementation
   const handleCopyAll = useCallback(async () => {
@@ -114,73 +109,50 @@ export default function FontGenerator({
     }
   }, [filteredStyles, resultsMap]);
 
-  const hasZalgoVisible = useMemo(() => {
-    return filteredStyles.some((s) => s.id === "zalgo-glitch");
-  }, [filteredStyles]);
-
   return (
-    <section className="w-full max-w-5xl mx-auto px-4 sm:px-6 py-6" id="generator">
-      {/* Top Generator Input Card */}
-      <div className="flex flex-col gap-4 mb-6">
+    <section className="w-full max-w-5xl mx-auto px-4 sm:px-6 py-4" id="generator">
+      {/* 1. Big Clean Input Box with built-in stats & quick samples */}
+      <div className="mb-4">
         <TextInput
           value={inputText}
           onChange={setInputText}
           placeholder="Your Text Here..."
           onClear={handleClear}
         />
-
-        {/* Live Character & Word Statistics */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <CharacterStats
-            text={inputText}
-            activeLimit={activePreset?.limit}
-            presetLabel={activePreset?.label}
-          />
-
-          {/* Privacy badge */}
-          <div className="flex items-center gap-1.5 text-xs text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-3 py-1.5 rounded-xl border border-emerald-200/80 dark:border-emerald-900/60 self-start sm:self-auto">
-            <ShieldCheck className="w-4 h-4 shrink-0" />
-            <span className="font-medium">100% Client-Side • Text stays in your browser</span>
-          </div>
-        </div>
-
-        {/* Social Presets */}
-        <SocialPresets
-          activePresetId={activePreset?.id ?? null}
-          onSelectPreset={(preset) => {
-            setActivePreset(preset);
-            if (preset?.filterCategory) {
-              setActiveCategory(preset.filterCategory);
-            }
-          }}
-        />
       </div>
 
-      {/* Row 1: Dedicated Search & Copy All Bar (Outside the Category Scroll Row) */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3 p-3 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
-        <div className="w-full sm:max-w-md">
-          <StyleSearch query={searchQuery} onQueryChange={setSearchQuery} />
+      {/* 2. Unified, Ultra-Sleek Action Toolbar: Categories + Search + Copy All */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4">
+        {/* Category Pills Track (Scrollable) */}
+        <div className="flex-1 min-w-0">
+          <CategoryFilter
+            activeCategory={activeCategory}
+            onSelectCategory={setActiveCategory}
+            favoritesCount={favorites.length}
+          />
         </div>
 
-        <div className="flex items-center justify-between sm:justify-end gap-3 shrink-0">
-          <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-            {filteredStyles.length} styles available
-          </span>
+        {/* Compact Right Controls: Search & Copy All */}
+        <div className="flex items-center gap-2 shrink-0 self-end md:self-auto w-full md:w-auto">
+          <div className="w-full md:w-52">
+            <StyleSearch query={searchQuery} onQueryChange={setSearchQuery} />
+          </div>
 
           <button
             type="button"
             onClick={handleCopyAll}
             disabled={filteredStyles.length === 0}
-            className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all active:scale-95 ${
+            aria-label="Copy all generated font styles"
+            className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition-all active:scale-95 shrink-0 ${
               copiedAll
-                ? "bg-emerald-600 text-white"
+                ? "bg-emerald-600 text-white shadow-sm"
                 : "bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:hover:bg-slate-100 dark:text-slate-900 shadow-sm"
             }`}
           >
             {copiedAll ? (
               <>
                 <Check className="w-4 h-4" />
-                <span>All Copied!</span>
+                <span>Copied!</span>
               </>
             ) : (
               <>
@@ -192,24 +164,7 @@ export default function FontGenerator({
         </div>
       </div>
 
-      {/* Row 2: Category Filter Horizontal Row (Now Full Width & Uncramped) */}
-      <div className="w-full mb-6">
-        <CategoryFilter
-          activeCategory={activeCategory}
-          onSelectCategory={setActiveCategory}
-          favoritesCount={favorites.length}
-        />
-      </div>
-
-      {/* Zalgo controls when relevant */}
-      {hasZalgoVisible && (
-        <ZalgoControls
-          intensity={zalgoIntensity}
-          onChangeIntensity={setZalgoIntensity}
-        />
-      )}
-
-      {/* Results Grid */}
+      {/* 3. Generated Fonts Results: Starts IMMEDIATELY right below */}
       <StyleGrid
         styles={filteredStyles}
         inputText={inputText}
