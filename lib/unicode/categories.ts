@@ -1,20 +1,36 @@
 export type CategoryId =
   | "all"
   | "popular"
+  | "stylish"
+  | "fancy"
+  | "cool"
+  | "beautiful"
+  | "striking"
+  | "minimal"
   | "bold"
   | "italic"
   | "cursive"
-  | "fancy"
+  | "gothic"
   | "aesthetic"
   | "symbols"
+  | "lines"
+  | "wrapped"
+  | "overtext"
+  | "blocks"
+  | "motion"
+  | "framed"
   | "bubble"
-  | "gothic"
   | "gaming"
   | "social-media"
   | "cute"
   | "small-text"
   | "unicode"
-  | "decorative";
+  | "decorative"
+  | "elegant"
+  | "unique"
+  | "mixed"
+  | "random"
+  | "numbers";
 
 export interface CategoryDefinition {
   id: CategoryId;
@@ -23,22 +39,29 @@ export interface CategoryDefinition {
 }
 
 export const CATEGORIES: CategoryDefinition[] = [
-  { id: "all", label: "All Styles", description: "Every available Unicode font and fancy text style." },
+  { id: "all", label: "All Styles (240+)", description: "Every single available Unicode font and fancy text style." },
   { id: "popular", label: "Popular", description: "Most widely used and universally compatible font styles." },
-  { id: "bold", label: "Bold", description: "Heavyweight mathematical serif and sans-serif bold styles." },
+  { id: "stylish", label: "Stylish", description: "Vintage Script, Rough, Cursive, and high-style fonts." },
+  { id: "fancy", label: "Fancy", description: "Typewriter, Bold, Curve, and ornate script transformations." },
+  { id: "cool", label: "Cool Fonts", description: "Square, Bubble, Wide, Inverted, and Mirrored text." },
+  { id: "beautiful", label: "Beautiful", description: "Historic script, Stone letters, Urban, and Enigma fonts." },
+  { id: "striking", label: "Striking", description: "Strong, Steel, Edgy, Abstract, and Eastern fonts." },
+  { id: "minimal", label: "Minimal", description: "Charm, Medieval, Academia, Reflected, and Zen fonts." },
+  { id: "bold", label: "Bold", description: "Heavyweight serif and sans-serif bold typography." },
   { id: "italic", label: "Italic", description: "Slanted, formal, and mathematical italic scripts." },
-  { id: "cursive", label: "Cursive", description: "Elegant calligraphy, handwritten script, and signature styles." },
-  { id: "fancy", label: "Fancy", description: "Ornate, decorative, and sparkling text transformations." },
-  { id: "aesthetic", label: "Aesthetic", description: "Vaporwave, fullwidth, brackets, and clean spaced styles." },
-  { id: "symbols", label: "Symbols", description: "Decorations with wings, borders, stars, and Unicode glyphs." },
-  { id: "bubble", label: "Bubble", description: "Circled and enclosed bubble letter variations." },
-  { id: "gothic", label: "Gothic", description: "Medieval Blackletter and Fraktur German-style calligraphy." },
-  { id: "gaming", label: "Gaming", description: "Bold strikes, thunder accents, and gaming clan tag styles." },
-  { id: "social-media", label: "Social Media", description: "High-engagement text styles for Instagram, TikTok, and Discord." },
-  { id: "cute", label: "Cute", description: "Whimsical bubbles, hearts, small caps, and gentle frames." },
-  { id: "small-text", label: "Small Text", description: "Compact small caps, superscripts, and subscripts." },
-  { id: "unicode", label: "Unicode", description: "Specialized mathematical, monospace, and double-struck alphabets." },
-  { id: "decorative", label: "Decorative", description: "Artistic frames, brackets, and ornamental symbols." },
+  { id: "cursive", label: "Cursive", description: "Calligraphy, handwritten script, and signature styles." },
+  { id: "gothic", label: "Gothic / Fraktur", description: "Medieval Blackletter and German Fraktur calligraphy." },
+  { id: "aesthetic", label: "Aesthetic", description: "Vaporwave, aesthetic spaced, and sparkle line fonts." },
+  { id: "symbols", label: "Symbols & Lines", description: "Underline, double overline, tildes, and strikethroughs." },
+  { id: "decorative", label: "Decorated & Borders", description: "Fitness bar, flower borders, stars, and crown frames." },
+  { id: "blocks", label: "Block & Frames", description: "Boxed, arc, brackets, and looped frames." },
+  { id: "unique", label: "Unique Combos", description: "Alternating font combinations and hybrid scripts." },
+  { id: "cute", label: "Cutesy", description: "Gentle bubbles, heart borders, and cute accents." },
+  { id: "small-text", label: "Small Text", description: "Compact small capitals, superscripts, and subscripts." },
+  { id: "mixed", label: "Mixed & Random", description: "Curated mixed Unicode character combinations." },
+  { id: "numbers", label: "Number Fonts", description: "Roman numerals, circled digits, and Arabic numerics." },
+  { id: "gaming", label: "Gaming", description: "Zalgo glitch, bold strikes, and clan tag styles." },
+  { id: "social-media", label: "Social Media", description: "High-engagement fonts for Instagram, TikTok, Discord, and X." },
 ];
 
 export interface SocialPreset {

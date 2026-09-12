@@ -61,13 +61,13 @@ export default function StyleGrid({
       </div>
 
       {!showAll && remainingCount > 0 && (
-        <div className="flex justify-center mt-8">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-8">
           <button
             type="button"
             onClick={() => setShowAll(true)}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-100 font-semibold text-sm shadow-sm hover:border-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all active:scale-95"
+            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:hover:bg-slate-100 dark:text-slate-900 font-semibold text-sm shadow-sm hover:shadow transition-all active:scale-95"
           >
-            <span>Show More Styles (+{remainingCount} more)</span>
+            <span>Show All {styles.length} Fonts (+{remainingCount} more)</span>
             <ChevronDown className="w-4 h-4" />
           </button>
         </div>

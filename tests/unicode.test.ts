@@ -150,10 +150,18 @@ describe("Unicode Transformation Engine", () => {
 
   it("executes generateAllStyles correctly for comprehensive list", () => {
     const all = generateAllStyles("Your Text Here");
-    expect(all.length).toBeGreaterThanOrEqual(60);
+    expect(all.length).toBeGreaterThanOrEqual(240);
     expect(all.some((s) => s.id === "bold-serif")).toBe(true);
     expect(all.some((s) => s.id === "vintage-script")).toBe(true);
     expect(all.some((s) => s.id === "curve")).toBe(true);
     expect(all.some((s) => s.id === "rough-tribal")).toBe(true);
+    expect(all.some((s) => s.id === "vintageScript")).toBe(true);
+    expect(all.some((s) => s.id === "fine")).toBe(true);
+    expect(all.some((s) => s.id === "loop")).toBe(true);
+    expect(all.some((s) => s.id === "light")).toBe(true);
+    expect(all.some((s) => s.id === "smooth")).toBe(true);
+    expect(all.some((s) => s.id === "dec_fitness_bar")).toBe(true);
+    expect(all.some((s) => s.id === "elg_spark_shine")).toBe(true);
+    expect(all.some((s) => s.id === "mxd_45")).toBe(true);
   });
 });

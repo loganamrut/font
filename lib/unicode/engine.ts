@@ -1,429 +1,235 @@
+import { f as COOL_FONTS } from "./coolEngine";
+import { generateZalgo, ZalgoIntensity } from "./zalgo";
+import { CategoryId } from "./categories";
 import {
   toBoldSerif,
-  toItalicSerif,
-  toBoldItalicSerif,
-  toSansSerif,
-  toSansSerifBold,
-  toSansSerifItalic,
-  toSansSerifBoldItalic,
-  toScript,
-  toBoldScript,
-  toFraktur,
-  toBoldFraktur,
-  toDoubleStruck,
-  toMonospace,
-  toCircled,
-  toCircledNegative,
-  toSquared,
-  toSquaredNegative,
-  toFullwidth,
-  toAestheticSpaced,
-  toSmallCaps,
-  toSuperscript,
-  toSubscript,
-  toUpsideDown,
-  toMirrorReverse,
-  toStrikethrough,
-  toSlashThrough,
-  toUnderline,
-  toDoubleUnderline,
-  toOverline,
-  toDottedBelow,
-  toWaveUnderline,
-  toTopDot,
-  toDottedRings,
-  toBreveBelow,
-  toSmilingLine,
-  toFloatingMarks,
-  toRegionalIndicator,
   toVintageScript,
   toRough,
-  toFine,
-  toLoop,
-  toCurve,
-  toLight,
-  toSmooth,
 } from "./transforms";
-import { generateZalgo, ZalgoIntensity } from "./zalgo";
-import { DECORATIVE_STYLES, applyDecorativeWrapper } from "./decorative";
-import { CategoryId } from "./categories";
 
 export interface FontStyleDefinition {
   id: string;
   name: string;
+  cat: string;
   categories: CategoryId[];
   isPopular?: boolean;
   transform: (text: string, options?: any) => string;
   description: string;
 }
 
+const POPULAR_IDS = new Set([
+  "vintageScript",
+  "rough",
+  "cursiveFont",
+  "boldScriptFont",
+  "boldFont",
+  "doubleStruckOutlined",
+  "frakturGothicFont",
+  "oldEnglishBold",
+  "fine",
+  "loop",
+  "light",
+  "smooth",
+  "monospaceTypewriter",
+  "curve",
+  "sansSerifBoldItalic",
+  "italicText",
+  "boldItalic",
+  "sansSerif",
+  "smallCaps",
+  "bubbleText",
+  "blackBubbleFont",
+  "dec_fitness_bar",
+  "dec_flower_border",
+  "dec_star_border",
+  "elg_spark_shine",
+  "elg_elegant_stars",
+  "zalgo-glitch",
+  "bold-serif",
+  "vintage-script",
+  "rough-tribal",
+]);
+
+function getCategoriesForStyle(id: string, cat: string, label: string): CategoryId[] {
+  const cats = new Set<CategoryId>(["all"]);
+  const idLower = id.toLowerCase();
+  const labelLower = label.toLowerCase();
+
+  // Category mapping matching fontgen.cool
+  if (cat === "Stylish Fonts") {
+    cats.add("stylish");
+    cats.add("popular");
+    cats.add("social-media");
+  } else if (cat === "Fancy Text Styles") {
+    cats.add("fancy");
+    cats.add("unicode");
+  } else if (cat === "Cool Fonts") {
+    cats.add("cool");
+    cats.add("bubble");
+  } else if (cat === "Beautiful Fonts") {
+    cats.add("beautiful");
+    cats.add("cursive");
+  } else if (cat === "Striking Fonts") {
+    cats.add("striking");
+    cats.add("gaming");
+  } else if (cat === "Minimal Fonts") {
+    cats.add("minimal");
+    cats.add("small-text");
+  } else if (cat === "Line Fonts") {
+    cats.add("symbols");
+    cats.add("lines");
+  } else if (cat === "Wrapped Fonts") {
+    cats.add("decorative");
+    cats.add("wrapped");
+  } else if (cat === "Overtext Styles") {
+    cats.add("symbols");
+    cats.add("overtext");
+  } else if (cat === "Symbolic Fonts") {
+    cats.add("symbols");
+  } else if (cat === "Dynamic Text Styles") {
+    cats.add("symbols");
+    cats.add("motion");
+  } else if (cat === "Block Fonts") {
+    cats.add("blocks");
+    cats.add("bubble");
+  } else if (cat === "Motion Text Styles") {
+    cats.add("motion");
+    cats.add("symbols");
+  } else if (cat === "Framed Letters") {
+    cats.add("framed");
+    cats.add("decorative");
+  } else if (cat === "Decorated Text Styles") {
+    cats.add("decorative");
+  } else if (cat === "Elegant Decorated Text") {
+    cats.add("decorative");
+    cats.add("elegant");
+  } else if (cat === "Aesthetic Fonts") {
+    cats.add("aesthetic");
+  } else if (cat === "Cutesy Fonts") {
+    cats.add("cute");
+  } else if (cat === "Unique Fonts") {
+    cats.add("unique");
+  } else if (cat === "Random Fonts") {
+    cats.add("random");
+    cats.add("cool");
+  } else if (cat === "Random Decorated Styles") {
+    cats.add("random");
+    cats.add("decorative");
+  } else if (cat === "Mixed Fonts") {
+    cats.add("mixed");
+    cats.add("cool");
+  } else if (cat === "Number Fonts") {
+    cats.add("numbers");
+    cats.add("unicode");
+  }
+
+  // Keyword-based classification for SEO landing pages
+  if (idLower.includes("bold") || labelLower.includes("bold")) {
+    cats.add("bold");
+  }
+  if (idLower.includes("italic") || labelLower.includes("italic")) {
+    cats.add("italic");
+  }
+  if (
+    idLower.includes("script") ||
+    labelLower.includes("script") ||
+    idLower.includes("cursive") ||
+    labelLower.includes("cursive")
+  ) {
+    cats.add("cursive");
+  }
+  if (
+    idLower.includes("fraktur") ||
+    labelLower.includes("fraktur") ||
+    idLower.includes("gothic") ||
+    labelLower.includes("gothic") ||
+    idLower.includes("oldenglish")
+  ) {
+    cats.add("gothic");
+  }
+  if (
+    idLower.includes("bubble") ||
+    labelLower.includes("bubble") ||
+    idLower.includes("square") ||
+    idLower.includes("circle")
+  ) {
+    cats.add("bubble");
+  }
+  if (
+    idLower.includes("small") ||
+    labelLower.includes("small") ||
+    idLower.includes("tiny") ||
+    idLower.includes("subscript")
+  ) {
+    cats.add("small-text");
+  }
+  if (
+    idLower.includes("upsidedown") ||
+    idLower.includes("flip") ||
+    idLower.includes("reverse")
+  ) {
+    cats.add("cool");
+  }
+
+  return Array.from(cats);
+}
+
+// Convert all 245 fonts from fontgen.cool into FontStyleDefinition objects
+const COOL_FONT_STYLES: FontStyleDefinition[] = COOL_FONTS.map((cf) => ({
+  id: cf.id,
+  name: cf.label,
+  cat: cf.cat,
+  categories: getCategoriesForStyle(cf.id, cf.cat, cf.label),
+  isPopular: POPULAR_IDS.has(cf.id),
+  transform: (text: string) => cf.fn(text),
+  description: `${cf.label} Unicode font style from ${cf.cat}.`,
+}));
+
+// Master list: All 245 fontgen.cool fonts + Zalgo Glitch + backward-compatible test aliases
 export const FONT_STYLES: FontStyleDefinition[] = [
-  // 1. Core Mathematical Styles
+  // 1. Core backward-compatible aliases for Vitest suite
   {
     id: "bold-serif",
     name: "Bold (Serif)",
-    categories: ["popular", "bold", "unicode", "social-media"],
+    cat: "Fancy Text Styles",
+    categories: ["all", "popular", "bold", "unicode", "social-media"],
     isPopular: true,
-    transform: toBoldSerif,
-    description: "Classic bold serif mathematical typography.",
+    transform: (text: string) => toBoldSerif(text),
+    description: "Mathematical bold serif letters for high visibility.",
   },
-  {
-    id: "bold-sans",
-    name: "Bold (Sans-Serif)",
-    categories: ["popular", "bold", "gaming", "social-media"],
-    isPopular: true,
-    transform: toSansSerifBold,
-    description: "Clean, modern sans-serif bold text.",
-  },
-  {
-    id: "italic-serif",
-    name: "Italic (Serif)",
-    categories: ["popular", "italic", "unicode", "social-media"],
-    isPopular: true,
-    transform: toItalicSerif,
-    description: "Traditional slanted serif italic typography.",
-  },
-  {
-    id: "italic-sans",
-    name: "Italic (Sans-Serif)",
-    categories: ["italic", "unicode", "social-media"],
-    transform: toSansSerifItalic,
-    description: "Modern sans-serif italic text.",
-  },
-  {
-    id: "bold-italic-serif",
-    name: "Bold Italic (Serif)",
-    categories: ["bold", "italic", "unicode"],
-    transform: toBoldItalicSerif,
-    description: "High-emphasis bold and slanted serif letters.",
-  },
-  {
-    id: "bold-italic-sans",
-    name: "Bold Italic (Sans-Serif)",
-    categories: ["bold", "italic", "gaming"],
-    transform: toSansSerifBoldItalic,
-    description: "High-impact bold italic sans-serif style.",
-  },
-  {
-    id: "sans-serif",
-    name: "Sans-Serif Normal",
-    categories: ["unicode", "social-media"],
-    transform: toSansSerif,
-    description: "Geometric clean sans-serif characters.",
-  },
-
-  // 2. Calligraphic & Script (Cursive)
-  {
-    id: "cursive-script",
-    name: "Cursive / Script",
-    categories: ["popular", "cursive", "fancy", "aesthetic", "cute"],
-    isPopular: true,
-    transform: toScript,
-    description: "Flowing handwritten script with authentic Unicode glyphs.",
-  },
-  {
-    id: "bold-cursive",
-    name: "Bold Cursive / Calligraphy",
-    categories: ["popular", "cursive", "fancy", "bold", "cute"],
-    isPopular: true,
-    transform: toBoldScript,
-    description: "Thick calligraphic handwritten brush strokes.",
-  },
-
-  // 3. Vintage, Rough, Curve, Loop & Smooth (fontgen.cool inspired)
   {
     id: "vintage-script",
     name: "Vintage Script",
-    categories: ["popular", "fancy", "aesthetic", "cute"],
+    cat: "Stylish Fonts",
+    categories: ["all", "popular", "stylish", "cursive"],
     isPopular: true,
-    transform: toVintageScript,
-    description: "Archaic typographic glyphs with rich historic charm.",
-  },
-  {
-    id: "curve",
-    name: "Curve Text",
-    categories: ["popular", "bubble", "aesthetic", "cute"],
-    isPopular: true,
-    transform: toCurve,
-    description: "Rounded curved letterforms with soft geometric curves.",
+    transform: (text: string) => toVintageScript(text),
+    description: "Historical Cherokee and archaic script typography.",
   },
   {
     id: "rough-tribal",
     name: "Rough / Tribal",
-    categories: ["gaming", "fancy", "aesthetic"],
-    transform: toRough,
-    description: "Angular geometric runes and tribal glyphs.",
-  },
-  {
-    id: "fine-script",
-    name: "Fine Script",
-    categories: ["aesthetic", "cursive", "cute"],
-    transform: toFine,
-    description: "Delicate thin script with graceful flourishes.",
-  },
-  {
-    id: "loop-text",
-    name: "Loop Text",
-    categories: ["aesthetic", "cursive", "cute"],
-    transform: toLoop,
-    description: "Playful looping swirls and soft flourishes.",
-  },
-  {
-    id: "light-coptic",
-    name: "Light Coptic",
-    categories: ["aesthetic", "unicode"],
-    transform: toLight,
-    description: "Classical Mediterranean and Coptic light glyphs.",
-  },
-  {
-    id: "smooth-text",
-    name: "Smooth Script",
-    categories: ["aesthetic", "cute"],
-    transform: toSmooth,
-    description: "Silky, smooth lowercase lettering.",
-  },
-
-  // 4. Gothic / Fraktur
-  {
-    id: "gothic-fraktur",
-    name: "Gothic / Fraktur",
-    categories: ["popular", "gothic", "gaming", "fancy"],
+    cat: "Stylish Fonts",
+    categories: ["all", "popular", "stylish", "striking", "gaming"],
     isPopular: true,
-    transform: toFraktur,
-    description: "Historic German Fraktur and medieval blackletter.",
-  },
-  {
-    id: "bold-gothic",
-    name: "Bold Gothic / Fraktur",
-    categories: ["gothic", "gaming", "bold"],
-    transform: toBoldFraktur,
-    description: "Heavy blackletter gothic script for gaming tags.",
+    transform: (text: string) => toRough(text),
+    description: "Syllabic geometric Unicode letterforms.",
   },
 
-  // 5. Double Struck / Blackboard Bold
-  {
-    id: "double-struck",
-    name: "Double-Struck / Blackboard",
-    categories: ["popular", "unicode", "aesthetic", "fancy"],
-    isPopular: true,
-    transform: toDoubleStruck,
-    description: "Hollow mathematical blackboard bold letters.",
-  },
-
-  // 6. Monospace
-  {
-    id: "monospace",
-    name: "Monospace / Typewriter",
-    categories: ["popular", "unicode", "gaming"],
-    isPopular: true,
-    transform: toMonospace,
-    description: "Fixed-width terminal and typewriter font style.",
-  },
-
-  // 7. Bubble / Enclosed
-  {
-    id: "bubble-text",
-    name: "Bubble Text (Circled)",
-    categories: ["popular", "bubble", "cute", "aesthetic"],
-    isPopular: true,
-    transform: toCircled,
-    description: "Friendly circled outline letters and numbers.",
-  },
-  {
-    id: "bubble-inverted",
-    name: "Black Bubble (Circled Inverted)",
-    categories: ["bubble", "gaming", "aesthetic"],
-    transform: toCircledNegative,
-    description: "Solid dark circle badges with inverted text.",
-  },
-  {
-    id: "squared",
-    name: "Squared Box",
-    categories: ["aesthetic", "unicode", "gaming"],
-    transform: toSquared,
-    description: "Letters framed in minimalist square boxes.",
-  },
-  {
-    id: "squared-negative",
-    name: "Black Squared",
-    categories: ["aesthetic", "gaming", "bold"],
-    transform: toSquaredNegative,
-    description: "Bold inverted square badge letters.",
-  },
-
-  // 8. Small Text / Phonetic
-  {
-    id: "small-caps",
-    name: "Small Capitals",
-    categories: ["popular", "small-text", "aesthetic", "social-media"],
-    isPopular: true,
-    transform: toSmallCaps,
-    description: "Clean small capital letters for subtle aesthetic bios.",
-  },
-  {
-    id: "superscript",
-    name: "Superscript (Tiny Elevated)",
-    categories: ["small-text", "unicode"],
-    transform: toSuperscript,
-    description: "Tiny raised superscript letters and numerals.",
-  },
-  {
-    id: "subscript",
-    name: "Subscript (Tiny Low)",
-    categories: ["small-text", "unicode"],
-    transform: toSubscript,
-    description: "Low miniature subscript letters.",
-  },
-
-  // 9. Aesthetic & Spaced
-  {
-    id: "fullwidth-vaporwave",
-    name: "Fullwidth / Vaporwave",
-    categories: ["popular", "aesthetic", "unicode", "fancy"],
-    isPopular: true,
-    transform: toFullwidth,
-    description: "Wide-spaced Japanese Zenkaku fullwidth characters.",
-  },
-  {
-    id: "aesthetic-spaced",
-    name: "Aesthetic Spaced",
-    categories: ["aesthetic", "cute"],
-    transform: toAestheticSpaced,
-    description: "Double-spaced aesthetic typography for headers.",
-  },
-
-  // 10. Playful & Inverted
-  {
-    id: "upside-down",
-    name: "Upside Down (Inverted)",
-    categories: ["popular", "fancy", "gaming"],
-    isPopular: true,
-    transform: toUpsideDown,
-    description: "Flipped and reversed upside-down characters.",
-  },
-  {
-    id: "mirror-reverse",
-    name: "Reverse / Backwards",
-    categories: ["fancy", "gaming"],
-    transform: toMirrorReverse,
-    description: "Reversed text sequence reading right-to-left.",
-  },
-
-  // 11. Overtext & Combining Marks
-  {
-    id: "top-dot",
-    name: "Top Dot / Dotted Above",
-    categories: ["aesthetic", "unicode"],
-    transform: toTopDot,
-    description: "Delicate dots positioned directly above each letter.",
-  },
-  {
-    id: "dotted-rings",
-    name: "Dotted Rings",
-    categories: ["aesthetic", "decorative"],
-    transform: toDottedRings,
-    description: "Floating halo rings over characters.",
-  },
-  {
-    id: "smiling-line",
-    name: "Smiling Line",
-    categories: ["cute", "decorative"],
-    transform: toSmilingLine,
-    description: "Connecting smile curve under characters.",
-  },
-  {
-    id: "strikethrough",
-    name: "Strikethrough",
-    categories: ["gaming", "social-media", "unicode"],
-    transform: toStrikethrough,
-    description: "Clean horizontal line cutting through letters.",
-  },
-  {
-    id: "slash-through",
-    name: "Slash Through",
-    categories: ["gaming", "unicode"],
-    transform: toSlashThrough,
-    description: "Diagonal slash overlay across each character.",
-  },
-  {
-    id: "underline",
-    name: "Underline",
-    categories: ["unicode", "social-media"],
-    transform: toUnderline,
-    description: "Low continuous underline bar below each letter.",
-  },
-  {
-    id: "double-underline",
-    name: "Double Underline",
-    categories: ["unicode", "fancy"],
-    transform: toDoubleUnderline,
-    description: "Double accent baseline underline.",
-  },
-  {
-    id: "overline",
-    name: "Overline",
-    categories: ["unicode"],
-    transform: toOverline,
-    description: "Continuous line floating above characters.",
-  },
-  {
-    id: "wave-underline",
-    name: "Wavy Underline",
-    categories: ["aesthetic", "decorative"],
-    transform: toWaveUnderline,
-    description: "Subtle tilde wave beneath the text.",
-  },
-  {
-    id: "breve-below",
-    name: "Breve Below",
-    categories: ["unicode", "decorative"],
-    transform: toBreveBelow,
-    description: "Curved breve markings beneath each glyph.",
-  },
-  {
-    id: "dotted-below",
-    name: "Dotted Below",
-    categories: ["unicode", "decorative"],
-    transform: toDottedBelow,
-    description: "Micro-dots beneath characters.",
-  },
-  {
-    id: "floating-marks",
-    name: "Floating Marks",
-    categories: ["aesthetic", "decorative"],
-    transform: toFloatingMarks,
-    description: "Floating inverted breves above each letter.",
-  },
-
-  // 12. Regional Indicators
-  {
-    id: "regional-indicator",
-    name: "Regional Flag Indicators",
-    categories: ["bubble", "aesthetic", "social-media"],
-    transform: toRegionalIndicator,
-    description: "Square emoji-style alphabet indicator blocks.",
-  },
-
-  // 13. Glitch / Zalgo
+  // 2. Glitch / Zalgo
   {
     id: "zalgo-glitch",
     name: "Glitch / Zalgo Text",
-    categories: ["popular", "gaming", "fancy", "gothic"],
+    cat: "Striking Fonts",
+    categories: ["all", "popular", "gaming", "striking", "fancy", "gothic"],
     isPopular: true,
-    transform: (text, options?: { intensity?: ZalgoIntensity }) =>
+    transform: (text: string, options?: { intensity?: ZalgoIntensity }) =>
       generateZalgo(text, options?.intensity ?? "medium"),
     description: "Chaotic corrupted glitch characters using combining accents.",
   },
 
-  // 14. Decorative Frames (including fontgen.cool borders)
-  ...DECORATIVE_STYLES.map((d) => ({
-    id: `dec-${d.id}`,
-    name: d.name,
-    categories: [d.category, "symbols"] as CategoryId[],
-    isPopular: ["royal-wings", "sparkle-stars", "star-border", "elegant-stars", "simple-border"].includes(d.id),
-    transform: (text: string) => applyDecorativeWrapper(text, d.prefix, d.suffix),
-    description: `Text framed with ${d.name.toLowerCase()} ornaments.`,
-  })),
+  // 3. All 245 fontgen.cool styles
+  ...COOL_FONT_STYLES,
 ];
 
 // Master transformation generator with memoization support

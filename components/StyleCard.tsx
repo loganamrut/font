@@ -51,6 +51,11 @@ export default function StyleCard({
           <span className="text-[11px] font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wider">
             {style.name}
           </span>
+          {style.cat && (
+            <span className="hidden sm:inline-block text-[10px] text-slate-400 dark:text-slate-500 font-normal">
+              • {style.cat}
+            </span>
+          )}
           {style.isPopular && (
             <span className="inline-flex items-center gap-0.5 text-[10px] font-medium px-1.5 py-0.2 rounded bg-amber-50 text-amber-700 dark:bg-amber-950/60 dark:text-amber-300 border border-amber-200/50">
               <Sparkles className="w-2.5 h-2.5 text-amber-500" />

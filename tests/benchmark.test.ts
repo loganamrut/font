@@ -29,11 +29,11 @@ describe("Performance & Stress Testing", () => {
     const results = generateAllStyles(text);
     const duration = performance.now() - start;
 
-    expect(results.length).toBeGreaterThan(40);
-    expect(duration).toBeLessThan(100);
+    expect(results.length).toBeGreaterThan(200);
+    expect(duration).toBeLessThan(400);
   });
 
-  it("handles 50,000 characters safely (< 350ms)", () => {
+  it("handles 50,000 characters safely (< 1500ms)", () => {
     const text = "Testing large unicode blocks for FontGen. ".repeat(1200);
     expect(text.length).toBeGreaterThanOrEqual(50000);
 
@@ -41,8 +41,8 @@ describe("Performance & Stress Testing", () => {
     const results = generateAllStyles(text);
     const duration = performance.now() - start;
 
-    expect(results.length).toBeGreaterThan(40);
-    expect(duration).toBeLessThan(400);
+    expect(results.length).toBeGreaterThan(200);
+    expect(duration).toBeLessThan(1500);
   });
 
   it("handles 100,000 characters without crashing", () => {
@@ -53,8 +53,8 @@ describe("Performance & Stress Testing", () => {
     const results = generateAllStyles(text);
     const duration = performance.now() - start;
 
-    expect(results.length).toBeGreaterThan(40);
+    expect(results.length).toBeGreaterThan(200);
     // Should complete cleanly without crashing
-    expect(duration).toBeLessThan(1000);
+    expect(duration).toBeLessThan(3000);
   });
 });
