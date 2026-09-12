@@ -8,7 +8,6 @@ import StyleGrid from "./StyleGrid";
 import { FONT_STYLES } from "@/lib/unicode/engine";
 import { CategoryId } from "@/lib/unicode/categories";
 import { getFavorites, toggleFavorite } from "@/lib/storage/favorites";
-import { Copy, Check } from "lucide-react";
 
 interface FontGeneratorProps {
   initialText?: string;
@@ -25,7 +24,6 @@ export default function FontGenerator({
   const [activeCategory, setActiveCategory] = useState<CategoryId | "favorites">(defaultCategory);
   const [searchQuery, setSearchQuery] = useState("");
   const [favorites, setFavorites] = useState<string[]>([]);
-  const [copiedAll, setCopiedAll] = useState(false);
 
   // Load favorites from local storage on client mount
   useEffect(() => {
@@ -81,34 +79,6 @@ export default function FontGenerator({
     return map;
   }, [inputText, filteredStyles]);
 
-  // "Copy All" implementation
-  const handleCopyAll = useCallback(async () => {
-    if (filteredStyles.length === 0) return;
-
-    const formatted = filteredStyles
-      .map((style) => {
-        const result = resultsMap.get(style.id) || "";
-        return `${style.name}:\n${result}`;
-      })
-      .join("\n\n");
-
-    try {
-      await navigator.clipboard.writeText(formatted);
-      setCopiedAll(true);
-      setTimeout(() => setCopiedAll(false), 2000);
-    } catch (err) {
-      // fallback
-      const textarea = document.createElement("textarea");
-      textarea.value = formatted;
-      document.body.appendChild(textarea);
-      textarea.select();
-      document.execCommand("copy");
-      document.body.removeChild(textarea);
-      setCopiedAll(true);
-      setTimeout(() => setCopiedAll(false), 2000);
-    }
-  }, [filteredStyles, resultsMap]);
-
   return (
     <section className="w-full max-w-5xl mx-auto px-4 sm:px-6 py-4" id="generator">
       {/* 1. Big Clean Input Box with built-in stats & quick samples */}
@@ -121,8 +91,8 @@ export default function FontGenerator({
         />
       </div>
 
-      {/* 2. Unified, Ultra-Sleek Action Toolbar: Categories + Search + Copy All */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4">
+      {/* 2. Sleek Filter Toolbar: Categories on Left, Search on Right */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
         {/* Category Pills Track (Scrollable) */}
         <div className="flex-1 min-w-0">
           <CategoryFilter
@@ -132,35 +102,9 @@ export default function FontGenerator({
           />
         </div>
 
-        {/* Compact Right Controls: Search & Copy All */}
-        <div className="flex items-center gap-2 shrink-0 self-end md:self-auto w-full md:w-auto">
-          <div className="w-full md:w-52">
-            <StyleSearch query={searchQuery} onQueryChange={setSearchQuery} />
-          </div>
-
-          <button
-            type="button"
-            onClick={handleCopyAll}
-            disabled={filteredStyles.length === 0}
-            aria-label="Copy all generated font styles"
-            className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition-all active:scale-95 shrink-0 ${
-              copiedAll
-                ? "bg-emerald-600 text-white shadow-sm"
-                : "bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:hover:bg-slate-100 dark:text-slate-900 shadow-sm"
-            }`}
-          >
-            {copiedAll ? (
-              <>
-                <Check className="w-4 h-4" />
-                <span>Copied!</span>
-              </>
-            ) : (
-              <>
-                <Copy className="w-4 h-4" />
-                <span>Copy All</span>
-              </>
-            )}
-          </button>
+        {/* Compact Right Control: Search */}
+        <div className="w-full sm:w-60 shrink-0">
+          <StyleSearch query={searchQuery} onQueryChange={setSearchQuery} />
         </div>
       </div>
 
