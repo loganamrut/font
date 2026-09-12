@@ -28,7 +28,7 @@ export default function HomePage() {
       </section>
 
       {/* Immediate Interactive Generator with default text "Your Text Here" */}
-      <FontGenerator defaultCategory="popular" initialText="Your Text Here" />
+      <FontGenerator defaultCategory="all" initialText="Your Text Here" />
 
       {/* Interactive Examples Gallery */}
       <ExamplesSection />

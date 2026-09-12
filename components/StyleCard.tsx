@@ -34,7 +34,6 @@ export default function StyleCard({
       }
     }
 
-    // Fallback: Copy to clipboard
     try {
       await navigator.clipboard.writeText(transformedText);
       setShareSuccess(true);
@@ -45,63 +44,56 @@ export default function StyleCard({
   }, [style.name, transformedText]);
 
   return (
-    <div className="group relative flex flex-col justify-between p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md hover:border-indigo-400 dark:hover:border-indigo-600 transition-all duration-200">
-      {/* Top Header: Style Name & Actions */}
-      <div className="flex items-center justify-between gap-2 mb-2.5">
-        <div className="flex items-center gap-1.5 min-w-0">
-          <h3 className="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200 truncate">
+    <div className="group w-full flex items-center justify-between gap-3 px-4 py-3 sm:px-5 sm:py-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 hover:border-indigo-400 dark:hover:border-indigo-500 hover:shadow-sm transition-all duration-150">
+      {/* Left Area: Style Name and Main Text Line */}
+      <div className="flex-1 min-w-0 pr-2">
+        <div className="flex items-center gap-2 mb-0.5">
+          <span className="text-[11px] font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wider">
             {style.name}
-          </h3>
+          </span>
           {style.isPopular && (
-            <span className="inline-flex items-center gap-0.5 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-amber-50 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 border border-amber-200/60 dark:border-amber-900/40">
+            <span className="inline-flex items-center gap-0.5 text-[10px] font-medium px-1.5 py-0.2 rounded bg-amber-50 text-amber-700 dark:bg-amber-950/60 dark:text-amber-300 border border-amber-200/50">
               <Sparkles className="w-2.5 h-2.5 text-amber-500" />
               <span>Popular</span>
             </span>
           )}
         </div>
 
-        <div className="flex items-center gap-1 shrink-0">
-          {/* Favorite Button */}
-          <button
-            type="button"
-            onClick={() => onToggleFavorite(style.id)}
-            aria-label={isFavorite ? `Remove ${style.name} from favorites` : `Add ${style.name} to favorites`}
-            className={`p-1.5 rounded-lg text-xs transition-colors ${
-              isFavorite
-                ? "text-rose-500 bg-rose-50 dark:bg-rose-950/40"
-                : "text-slate-400 hover:text-rose-500 hover:bg-slate-50 dark:hover:bg-slate-800"
-            }`}
-          >
-            <Heart className={`w-4 h-4 ${isFavorite ? "fill-rose-500" : ""}`} />
-          </button>
-
-          {/* Share Button */}
-          <button
-            type="button"
-            onClick={handleShare}
-            aria-label={`Share ${style.name}`}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-indigo-600 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
-            title="Share or quick copy"
-          >
-            <Share2 className="w-4 h-4" />
-          </button>
+        <div className="text-lg sm:text-xl md:text-2xl text-slate-900 dark:text-slate-50 font-normal tracking-wide break-words select-all leading-normal">
+          {transformedText}
         </div>
       </div>
 
-      {/* Center Preview - Clean White Typography Box */}
-      <div className="my-2 p-3.5 sm:p-4 rounded-xl bg-white dark:bg-slate-800/40 border border-slate-200/80 dark:border-slate-800 min-h-[4.5rem] flex items-center overflow-x-auto select-all">
-        <p className="text-lg sm:text-xl md:text-2xl text-slate-900 dark:text-slate-50 break-words font-normal tracking-wide whitespace-pre-wrap selection:bg-indigo-500 selection:text-white">
-          {transformedText}
-        </p>
-      </div>
+      {/* Right Area: Minimal Action Buttons */}
+      <div className="flex items-center gap-1.5 shrink-0 justify-end">
+        {/* Favorite Button */}
+        <button
+          type="button"
+          onClick={() => onToggleFavorite(style.id)}
+          aria-label={isFavorite ? `Remove ${style.name} from favorites` : `Add ${style.name} to favorites`}
+          className={`p-2 rounded-lg text-xs transition-colors ${
+            isFavorite
+              ? "text-rose-500 bg-rose-50 dark:bg-rose-950/40"
+              : "text-slate-400 hover:text-rose-500 hover:bg-slate-50 dark:hover:bg-slate-800"
+          }`}
+          title={isFavorite ? "Favorited" : "Add to favorites"}
+        >
+          <Heart className={`w-4 h-4 ${isFavorite ? "fill-rose-500" : ""}`} />
+        </button>
 
-      {/* Bottom Footer: Description & Action */}
-      <div className="flex items-center justify-between gap-3 mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-800/60">
-        <span className="text-[11px] text-slate-400 dark:text-slate-500 truncate max-w-[180px] sm:max-w-[240px]">
-          {style.description}
-        </span>
+        {/* Share Button */}
+        <button
+          type="button"
+          onClick={handleShare}
+          aria-label={`Share ${style.name}`}
+          className="p-2 rounded-lg text-slate-400 hover:text-indigo-600 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+          title="Share style"
+        >
+          <Share2 className="w-4 h-4" />
+        </button>
 
-        <CopyButton textToCopy={transformedText} label="Copy" />
+        {/* One-Click Copy */}
+        <CopyButton textToCopy={transformedText} label="Copy" className="px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg" />
       </div>
     </div>
   );

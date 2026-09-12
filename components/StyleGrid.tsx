@@ -20,7 +20,7 @@ export default function StyleGrid({
   resultsMap,
   favorites,
   onToggleFavorite,
-  defaultVisibleCount = 18,
+  defaultVisibleCount = 36,
 }: StyleGridProps) {
   const [showAll, setShowAll] = useState(false);
 
@@ -43,7 +43,7 @@ export default function StyleGrid({
 
   return (
     <div className="w-full">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4">
+      <div className="flex flex-col gap-2.5 sm:gap-3 w-full">
         {displayedStyles.map((style) => {
           const transformed = resultsMap.get(style.id) || inputText;
           const isFav = favorites.includes(style.id);
