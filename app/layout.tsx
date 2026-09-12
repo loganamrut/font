@@ -5,7 +5,11 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import CookieConsent from "@/components/CookieConsent";
-import { generateWebApplicationSchema, generateWebSiteSchema } from "@/lib/seo/schema";
+import {
+  generateWebApplicationSchema,
+  generateWebSiteSchema,
+  generateOrganizationSchema,
+} from "@/lib/seo/schema";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://fontgen.dev"),
@@ -44,22 +48,35 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: "https://fontgen.dev",
+    canonical: "https://fontgen.dev/",
   },
   openGraph: {
     title: "Font Generator - Fancy & Stylish Text to Copy and Paste",
     description:
       "Free font generator for creating fancy, stylish and Unicode text. Generate bold, cursive, aesthetic and cool text you can copy and paste anywhere.",
-    url: "https://fontgen.dev",
+    url: "https://fontgen.dev/",
     siteName: "FontGen",
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: "https://fontgen.dev/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "FontGen - Online Font & Fancy Text Generator",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Font Generator - Fancy & Stylish Text to Copy and Paste",
     description:
       "Free font generator for creating fancy, stylish and Unicode text. Generate bold, cursive, aesthetic and cool text you can copy and paste anywhere.",
+    images: ["https://fontgen.dev/og-image.png"],
+    creator: "@FontGenDev",
+  },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
   },
 };
 
@@ -70,6 +87,7 @@ export default function RootLayout({
 }>) {
   const webAppSchema = generateWebApplicationSchema();
   const webSiteSchema = generateWebSiteSchema();
+  const orgSchema = generateOrganizationSchema();
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -95,6 +113,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
         />
       </head>
       <body className="min-h-screen flex flex-col antialiased bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-50 selection:bg-indigo-500 selection:text-white">

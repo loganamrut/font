@@ -8,6 +8,7 @@ interface MetadataOptions {
   description: string;
   canonicalPath?: string;
   keywords?: string[];
+  ogImage?: string;
 }
 
 export function constructMetadata({
@@ -15,8 +16,11 @@ export function constructMetadata({
   description,
   canonicalPath = "",
   keywords = [],
+  ogImage = "/og-image.png",
 }: MetadataOptions): Metadata {
-  const url = `${SITE_URL}${canonicalPath}`;
+  const cleanPath = canonicalPath.replace(/^\/+|\/+$/g, "");
+  const canonicalUrl = cleanPath ? `${SITE_URL}/${cleanPath}/` : `${SITE_URL}/`;
+  const imageUrl = ogImage.startsWith("http") ? ogImage : `${SITE_URL}${ogImage}`;
 
   const defaultKeywords = [
     "font generator",
@@ -38,20 +42,33 @@ export function constructMetadata({
     publisher: "FontGen",
     metadataBase: new URL(SITE_URL),
     alternates: {
-      canonical: url,
+      canonical: canonicalUrl,
     },
     openGraph: {
       title,
       description,
-      url,
+      url: canonicalUrl,
       siteName: SITE_NAME,
       locale: "en_US",
       type: "website",
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: `${title} - FontGen.dev`,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: [imageUrl],
+      creator: "@FontGenDev",
+    },
+    verification: {
+      google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
     },
     robots: {
       index: true,
