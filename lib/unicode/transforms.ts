@@ -8,6 +8,13 @@ import {
   UPSIDE_DOWN_MAP,
   CIRCLED_NUMBERS,
   CIRCLED_NEGATIVE_NUMBERS,
+  VINTAGE_SCRIPT_MAP,
+  ROUGH_MAP,
+  FINE_MAP,
+  LOOP_MAP,
+  CURVE_MAP,
+  LIGHT_MAP,
+  SMOOTH_MAP,
 } from "./maps";
 
 // Helper to transform characters using base offset ranges
@@ -75,7 +82,6 @@ function applyCombiningMark(text: string, mark: string): string {
 // 1. Mathematical Alphanumeric Transforms
 export const toBoldSerif = (text: string) => mapOffset(text, 0x1d400, 0x1d41a, 0x1d7ce);
 export const toItalicSerif = (text: string) => {
-  // 'h' has Unicode exception U+210E in standard italic math
   return mapOffset(text, 0x1d434, 0x1d44e, undefined, { h: "\u210E" });
 };
 export const toBoldItalicSerif = (text: string) => mapOffset(text, 0x1d468, 0x1d482);
@@ -167,7 +173,6 @@ export const toFullwidth = (text: string) => {
       if (char === " ") return "\u3000";
       const code = char.codePointAt(0);
       if (!code) return char;
-      // ASCII visible chars 33 (!) to 126 (~)
       if (code >= 33 && code <= 126) {
         return String.fromCodePoint(code + 0xfee0);
       }
@@ -214,6 +219,11 @@ export const toDoubleUnderline = (text: string) => applyCombiningMark(text, "\u0
 export const toOverline = (text: string) => applyCombiningMark(text, "\u0305");
 export const toDottedBelow = (text: string) => applyCombiningMark(text, "\u0323");
 export const toWaveUnderline = (text: string) => applyCombiningMark(text, "\u0330");
+export const toTopDot = (text: string) => applyCombiningMark(text, "\u0307");
+export const toDottedRings = (text: string) => applyCombiningMark(text, "\u030A");
+export const toBreveBelow = (text: string) => applyCombiningMark(text, "\u032E");
+export const toSmilingLine = (text: string) => applyCombiningMark(text, "\u035C");
+export const toFloatingMarks = (text: string) => applyCombiningMark(text, "\u0311");
 
 // Regional Indicators (Emoji Letters)
 export const toRegionalIndicator = (text: string) => {
@@ -228,3 +238,12 @@ export const toRegionalIndicator = (text: string) => {
     })
     .join("");
 };
+
+// 2. FontGen.cool Inspired Unique Alphabetic Fonts
+export const toVintageScript = (text: string) => mapDictionary(text, VINTAGE_SCRIPT_MAP);
+export const toRough = (text: string) => mapDictionary(text, ROUGH_MAP);
+export const toFine = (text: string) => mapDictionary(text, FINE_MAP);
+export const toLoop = (text: string) => mapDictionary(text, LOOP_MAP);
+export const toCurve = (text: string) => mapDictionary(text, CURVE_MAP);
+export const toLight = (text: string) => mapDictionary(text, LIGHT_MAP);
+export const toSmooth = (text: string) => mapDictionary(text, SMOOTH_MAP);

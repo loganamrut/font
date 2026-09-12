@@ -21,10 +21,10 @@ export default function CategoryFilter({
         <button
           type="button"
           onClick={() => onSelectCategory("favorites")}
-          className={`shrink-0 flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-all ${
+          className={`shrink-0 flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
             activeCategory === "favorites"
               ? "bg-rose-500 text-white shadow-sm ring-2 ring-rose-400/30"
-              : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 border border-slate-200/50 dark:border-slate-700"
+              : "bg-white text-slate-700 hover:bg-slate-50 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800"
           }`}
         >
           <Heart className={`w-3.5 h-3.5 ${activeCategory === "favorites" ? "fill-white" : "fill-rose-500 text-rose-500"}`} />
@@ -49,10 +49,10 @@ export default function CategoryFilter({
               key={cat.id}
               type="button"
               onClick={() => onSelectCategory(cat.id)}
-              className={`shrink-0 px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-all ${
+              className={`shrink-0 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
                 isActive
                   ? "bg-indigo-600 text-white shadow-sm ring-2 ring-indigo-400/30 dark:bg-indigo-500"
-                  : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 border border-slate-200/50 dark:border-slate-700"
+                  : "bg-white text-slate-700 hover:bg-slate-50 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800"
               }`}
             >
               {cat.label}

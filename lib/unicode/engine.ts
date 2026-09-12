@@ -30,10 +30,22 @@ import {
   toOverline,
   toDottedBelow,
   toWaveUnderline,
+  toTopDot,
+  toDottedRings,
+  toBreveBelow,
+  toSmilingLine,
+  toFloatingMarks,
   toRegionalIndicator,
+  toVintageScript,
+  toRough,
+  toFine,
+  toLoop,
+  toCurve,
+  toLight,
+  toSmooth,
 } from "./transforms";
 import { generateZalgo, ZalgoIntensity } from "./zalgo";
-import { applyDecorativeWrapper } from "./decorative";
+import { DECORATIVE_STYLES, applyDecorativeWrapper } from "./decorative";
 import { CategoryId } from "./categories";
 
 export interface FontStyleDefinition {
@@ -118,7 +130,60 @@ export const FONT_STYLES: FontStyleDefinition[] = [
     description: "Thick calligraphic handwritten brush strokes.",
   },
 
-  // 3. Gothic / Fraktur
+  // 3. Vintage, Rough, Curve, Loop & Smooth (fontgen.cool inspired)
+  {
+    id: "vintage-script",
+    name: "Vintage Script",
+    categories: ["popular", "fancy", "aesthetic", "cute"],
+    isPopular: true,
+    transform: toVintageScript,
+    description: "Archaic typographic glyphs with rich historic charm.",
+  },
+  {
+    id: "curve",
+    name: "Curve Text",
+    categories: ["popular", "bubble", "aesthetic", "cute"],
+    isPopular: true,
+    transform: toCurve,
+    description: "Rounded curved letterforms with soft geometric curves.",
+  },
+  {
+    id: "rough-tribal",
+    name: "Rough / Tribal",
+    categories: ["gaming", "fancy", "aesthetic"],
+    transform: toRough,
+    description: "Angular geometric runes and tribal glyphs.",
+  },
+  {
+    id: "fine-script",
+    name: "Fine Script",
+    categories: ["aesthetic", "cursive", "cute"],
+    transform: toFine,
+    description: "Delicate thin script with graceful flourishes.",
+  },
+  {
+    id: "loop-text",
+    name: "Loop Text",
+    categories: ["aesthetic", "cursive", "cute"],
+    transform: toLoop,
+    description: "Playful looping swirls and soft flourishes.",
+  },
+  {
+    id: "light-coptic",
+    name: "Light Coptic",
+    categories: ["aesthetic", "unicode"],
+    transform: toLight,
+    description: "Classical Mediterranean and Coptic light glyphs.",
+  },
+  {
+    id: "smooth-text",
+    name: "Smooth Script",
+    categories: ["aesthetic", "cute"],
+    transform: toSmooth,
+    description: "Silky, smooth lowercase lettering.",
+  },
+
+  // 4. Gothic / Fraktur
   {
     id: "gothic-fraktur",
     name: "Gothic / Fraktur",
@@ -135,7 +200,7 @@ export const FONT_STYLES: FontStyleDefinition[] = [
     description: "Heavy blackletter gothic script for gaming tags.",
   },
 
-  // 4. Double Struck / Blackboard Bold
+  // 5. Double Struck / Blackboard Bold
   {
     id: "double-struck",
     name: "Double-Struck / Blackboard",
@@ -145,7 +210,7 @@ export const FONT_STYLES: FontStyleDefinition[] = [
     description: "Hollow mathematical blackboard bold letters.",
   },
 
-  // 5. Monospace
+  // 6. Monospace
   {
     id: "monospace",
     name: "Monospace / Typewriter",
@@ -155,7 +220,7 @@ export const FONT_STYLES: FontStyleDefinition[] = [
     description: "Fixed-width terminal and typewriter font style.",
   },
 
-  // 6. Bubble / Enclosed
+  // 7. Bubble / Enclosed
   {
     id: "bubble-text",
     name: "Bubble Text (Circled)",
@@ -186,7 +251,7 @@ export const FONT_STYLES: FontStyleDefinition[] = [
     description: "Bold inverted square badge letters.",
   },
 
-  // 7. Small Text / Phonetic
+  // 8. Small Text / Phonetic
   {
     id: "small-caps",
     name: "Small Capitals",
@@ -210,7 +275,7 @@ export const FONT_STYLES: FontStyleDefinition[] = [
     description: "Low miniature subscript letters.",
   },
 
-  // 8. Aesthetic & Spaced
+  // 9. Aesthetic & Spaced
   {
     id: "fullwidth-vaporwave",
     name: "Fullwidth / Vaporwave",
@@ -227,7 +292,7 @@ export const FONT_STYLES: FontStyleDefinition[] = [
     description: "Double-spaced aesthetic typography for headers.",
   },
 
-  // 9. Playful & Inverted
+  // 10. Playful & Inverted
   {
     id: "upside-down",
     name: "Upside Down (Inverted)",
@@ -244,7 +309,28 @@ export const FONT_STYLES: FontStyleDefinition[] = [
     description: "Reversed text sequence reading right-to-left.",
   },
 
-  // 10. Combining Marks / Lines
+  // 11. Overtext & Combining Marks
+  {
+    id: "top-dot",
+    name: "Top Dot / Dotted Above",
+    categories: ["aesthetic", "unicode"],
+    transform: toTopDot,
+    description: "Delicate dots positioned directly above each letter.",
+  },
+  {
+    id: "dotted-rings",
+    name: "Dotted Rings",
+    categories: ["aesthetic", "decorative"],
+    transform: toDottedRings,
+    description: "Floating halo rings over characters.",
+  },
+  {
+    id: "smiling-line",
+    name: "Smiling Line",
+    categories: ["cute", "decorative"],
+    transform: toSmilingLine,
+    description: "Connecting smile curve under characters.",
+  },
   {
     id: "strikethrough",
     name: "Strikethrough",
@@ -288,14 +374,28 @@ export const FONT_STYLES: FontStyleDefinition[] = [
     description: "Subtle tilde wave beneath the text.",
   },
   {
+    id: "breve-below",
+    name: "Breve Below",
+    categories: ["unicode", "decorative"],
+    transform: toBreveBelow,
+    description: "Curved breve markings beneath each glyph.",
+  },
+  {
     id: "dotted-below",
     name: "Dotted Below",
     categories: ["unicode", "decorative"],
     transform: toDottedBelow,
     description: "Micro-dots beneath characters.",
   },
+  {
+    id: "floating-marks",
+    name: "Floating Marks",
+    categories: ["aesthetic", "decorative"],
+    transform: toFloatingMarks,
+    description: "Floating inverted breves above each letter.",
+  },
 
-  // 11. Regional Indicators
+  // 12. Regional Indicators
   {
     id: "regional-indicator",
     name: "Regional Flag Indicators",
@@ -304,7 +404,7 @@ export const FONT_STYLES: FontStyleDefinition[] = [
     description: "Square emoji-style alphabet indicator blocks.",
   },
 
-  // 12. Glitch / Zalgo
+  // 13. Glitch / Zalgo
   {
     id: "zalgo-glitch",
     name: "Glitch / Zalgo Text",
@@ -315,107 +415,15 @@ export const FONT_STYLES: FontStyleDefinition[] = [
     description: "Chaotic corrupted glitch characters using combining accents.",
   },
 
-  // 13. Decorative Wrappers
-  {
-    id: "royal-wings",
-    name: "Royal Wings Frame",
-    categories: ["popular", "symbols", "decorative", "gaming", "fancy"],
-    isPopular: true,
-    transform: (text) => applyDecorativeWrapper(text, "꧁ ", " ꧂"),
-    description: "Regal wing filigree ornaments.",
-  },
-  {
-    id: "sparkle-stars",
-    name: "Star Dust / Sparkles",
-    categories: ["popular", "fancy", "symbols", "decorative", "cute"],
-    isPopular: true,
-    transform: (text) => applyDecorativeWrapper(text, "✨ ", " ✨"),
-    description: "Glittering star sparkles flanking your phrase.",
-  },
-  {
-    id: "sparkle-star",
-    name: "Solid Stars",
-    categories: ["fancy", "symbols", "decorative", "cute"],
-    transform: (text) => applyDecorativeWrapper(text, "★ ", " ★"),
-    description: "Five-pointed solid stars framing the text.",
-  },
-  {
-    id: "diamond-spark",
-    name: "Diamond Spark",
-    categories: ["fancy", "symbols", "decorative"],
-    transform: (text) => applyDecorativeWrapper(text, "✦ ", " ✦"),
-    description: "Four-pointed geometric diamond stars.",
-  },
-  {
-    id: "angel-wings",
-    name: "Angel Wings",
-    categories: ["symbols", "decorative", "cute", "fancy"],
-    transform: (text) => applyDecorativeWrapper(text, "༺ ", " ༻"),
-    description: "Soft curved celestial wings.",
-  },
-  {
-    id: "asian-corner-brackets",
-    name: "Asian Corner Brackets",
-    categories: ["aesthetic", "symbols", "decorative"],
-    transform: (text) => applyDecorativeWrapper(text, "『", "』"),
-    description: "Japanese quote marks for minimalist aesthetic titles.",
-  },
-  {
-    id: "lenticular-brackets",
-    name: "Lenticular Brackets",
-    categories: ["aesthetic", "symbols", "decorative"],
-    transform: (text) => applyDecorativeWrapper(text, "【", "】"),
-    description: "Bold curved lenticular brackets.",
-  },
-  {
-    id: "double-angle-brackets",
-    name: "Double Angle Brackets",
-    categories: ["aesthetic", "symbols", "decorative"],
-    transform: (text) => applyDecorativeWrapper(text, "《", "》"),
-    description: "Guillemet aesthetic double brackets.",
-  },
-  {
-    id: "mystic-aura",
-    name: "Mystic Aura",
-    categories: ["gothic", "gaming", "decorative", "symbols"],
-    transform: (text) => applyDecorativeWrapper(text, "༒ ", " ༒"),
-    description: "Tibetan vajra cross mystic symbols.",
-  },
-  {
-    id: "floral-bloom",
-    name: "Floral Bloom",
-    categories: ["cute", "decorative", "symbols"],
-    transform: (text) => applyDecorativeWrapper(text, "᪥ ", " ᪥"),
-    description: "Delicate blossom flowers framing text.",
-  },
-  {
-    id: "heart-accent",
-    name: "Heart Accent",
-    categories: ["cute", "symbols", "decorative", "social-media"],
-    transform: (text) => applyDecorativeWrapper(text, "♥ ", " ♥"),
-    description: "Classic bold heart symbols.",
-  },
-  {
-    id: "thunder-gaming",
-    name: "Thunder / Lightning",
-    categories: ["gaming", "symbols", "decorative"],
-    transform: (text) => applyDecorativeWrapper(text, "⚡ ", " ⚡"),
-    description: "High-voltage lightning bolts for gaming clan names.",
-  },
-  {
-    id: "melody-music",
-    name: "Musical Notes",
-    categories: ["cute", "symbols", "decorative"],
-    transform: (text) => applyDecorativeWrapper(text, "♪♫ ", " ♫♪"),
-    description: "Musical eighth notes and treble elements.",
-  },
-  {
-    id: "warrior-shield",
-    name: "Warrior Shield",
-    categories: ["gaming", "symbols", "decorative"],
-    transform: (text) => applyDecorativeWrapper(text, "☬ ", " ☬"),
-    description: "Emblematic insignia for battle tags.",
-  },
+  // 14. Decorative Frames (including fontgen.cool borders)
+  ...DECORATIVE_STYLES.map((d) => ({
+    id: `dec-${d.id}`,
+    name: d.name,
+    categories: [d.category, "symbols"] as CategoryId[],
+    isPopular: ["royal-wings", "sparkle-stars", "star-border", "elegant-stars", "simple-border"].includes(d.id),
+    transform: (text: string) => applyDecorativeWrapper(text, d.prefix, d.suffix),
+    description: `Text framed with ${d.name.toLowerCase()} ornaments.`,
+  })),
 ];
 
 // Master transformation generator with memoization support
@@ -424,8 +432,7 @@ export function generateAllStyles(
   options?: { zalgoIntensity?: ZalgoIntensity }
 ): { id: string; name: string; result: string; style: FontStyleDefinition }[] {
   if (!text) {
-    // Generate preview placeholder if empty
-    text = "Hello World";
+    text = "Your Text Here";
   }
 
   return FONT_STYLES.map((style) => {

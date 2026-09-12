@@ -11,6 +11,9 @@ import {
   toSmallCaps,
   toUpsideDown,
   toStrikethrough,
+  toVintageScript,
+  toRough,
+  toCurve,
 } from "../lib/unicode/transforms";
 import { generateAllStyles } from "../lib/unicode/engine";
 import { generateZalgo } from "../lib/unicode/zalgo";
@@ -33,6 +36,17 @@ describe("Unicode Transformation Engine", () => {
     expect(doubleStruck).toBe("ℍ𝕖𝕝𝕝𝕠");
   });
 
+  it("handles Vintage Script, Rough, and Curve fonts inspired by fontgen.cool", () => {
+    const vintage = toVintageScript("Hello");
+    expect(vintage).toBe("ᎻᎬᏞᏞᎾ");
+
+    const curve = toCurve("HELLO");
+    expect(curve).toBe("ᕼEᒪᒪO");
+
+    const rough = toRough("Hello");
+    expect(rough).toBe("ꁝꏂ꒒꒒ꄲ");
+  });
+
   it("transforms lowercase & uppercase independently", () => {
     const lower = toBoldSerif("hello");
     expect(lower).toBe("𝐡𝐞𝐥𝐥𝐨");
@@ -51,7 +65,6 @@ describe("Unicode Transformation Engine", () => {
 
   it("safely handles diacritics and accented characters: Café, Résumé", () => {
     const cafe = toBoldSerif("Café");
-    // 'é' is unmapped in basic latin mathematical alphabet, so it remains safe 'é'
     expect(cafe).toBe("𝐂𝐚𝐟é");
 
     const resume = toBoldSerif("Résumé");
@@ -132,16 +145,15 @@ describe("Unicode Transformation Engine", () => {
     const duration = performance.now() - start;
 
     expect(result.length).toBeGreaterThan(longText.length);
-    // Should process in under 100ms
     expect(duration).toBeLessThan(100);
   });
 
   it("executes generateAllStyles correctly for comprehensive list", () => {
-    const all = generateAllStyles("FontGen");
-    expect(all.length).toBeGreaterThanOrEqual(40);
+    const all = generateAllStyles("Your Text Here");
+    expect(all.length).toBeGreaterThanOrEqual(60);
     expect(all.some((s) => s.id === "bold-serif")).toBe(true);
-    expect(all.some((s) => s.id === "cursive-script")).toBe(true);
-    expect(all.some((s) => s.id === "bubble-text")).toBe(true);
-    expect(all.some((s) => s.id === "gothic-fraktur")).toBe(true);
+    expect(all.some((s) => s.id === "vintage-script")).toBe(true);
+    expect(all.some((s) => s.id === "curve")).toBe(true);
+    expect(all.some((s) => s.id === "rough-tribal")).toBe(true);
   });
 });

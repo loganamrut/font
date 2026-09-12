@@ -18,12 +18,10 @@ interface FontGeneratorProps {
   initialText?: string;
   defaultCategory?: CategoryId;
   defaultSocialPresetId?: string;
-  titleOverride?: string;
-  subtitleOverride?: string;
 }
 
 export default function FontGenerator({
-  initialText = "Hello World",
+  initialText = "Your Text Here",
   defaultCategory = "popular",
   defaultSocialPresetId,
 }: FontGeneratorProps) {
@@ -73,10 +71,9 @@ export default function FontGenerator({
   }, [activeCategory, searchQuery, favorites]);
 
   // Compute transformations for visible styles
-  // Efficiently memoized to prevent lag during rapid typing
   const resultsMap = useMemo(() => {
     const map = new Map<string, string>();
-    const textToTransform = inputText || "Hello World";
+    const textToTransform = inputText || "Your Text Here";
 
     for (const style of filteredStyles) {
       if (style.id === "zalgo-glitch") {
@@ -122,13 +119,13 @@ export default function FontGenerator({
   }, [filteredStyles]);
 
   return (
-    <section className="w-full max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8" id="generator">
+    <section className="w-full max-w-5xl mx-auto px-4 sm:px-6 py-6" id="generator">
       {/* Top Generator Input Card */}
       <div className="flex flex-col gap-4 mb-6">
         <TextInput
           value={inputText}
           onChange={setInputText}
-          placeholder="Type or paste your text here..."
+          placeholder="Your Text Here..."
           onClear={handleClear}
         />
 
@@ -141,7 +138,7 @@ export default function FontGenerator({
           />
 
           {/* Privacy badge */}
-          <div className="flex items-center gap-1.5 text-xs text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2.5 py-1 rounded-lg border border-emerald-200/80 dark:border-emerald-900/60 self-start sm:self-auto">
+          <div className="flex items-center gap-1.5 text-xs text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-3 py-1.5 rounded-xl border border-emerald-200/80 dark:border-emerald-900/60 self-start sm:self-auto">
             <ShieldCheck className="w-4 h-4 shrink-0" />
             <span className="font-medium">100% Client-Side • Text stays in your browser</span>
           </div>
@@ -159,26 +156,25 @@ export default function FontGenerator({
         />
       </div>
 
-      {/* Category Filter & Search Toolbar */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4 pt-2 border-t border-slate-200/80 dark:border-slate-800">
-        <CategoryFilter
-          activeCategory={activeCategory}
-          onSelectCategory={setActiveCategory}
-          favoritesCount={favorites.length}
-        />
-
-        <div className="flex items-center gap-2 shrink-0 self-end md:self-auto">
+      {/* Row 1: Dedicated Search & Copy All Bar (Outside the Category Scroll Row) */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3 p-3 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+        <div className="w-full sm:max-w-md">
           <StyleSearch query={searchQuery} onQueryChange={setSearchQuery} />
+        </div>
 
-          {/* Copy All Button */}
+        <div className="flex items-center justify-between sm:justify-end gap-3 shrink-0">
+          <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+            {filteredStyles.length} styles available
+          </span>
+
           <button
             type="button"
             onClick={handleCopyAll}
             disabled={filteredStyles.length === 0}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all ${
+            className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all active:scale-95 ${
               copiedAll
                 ? "bg-emerald-600 text-white"
-                : "bg-slate-900 hover:bg-slate-800 text-white dark:bg-slate-100 dark:hover:bg-white dark:text-slate-900"
+                : "bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:hover:bg-slate-100 dark:text-slate-900 shadow-sm"
             }`}
           >
             {copiedAll ? (
@@ -194,6 +190,15 @@ export default function FontGenerator({
             )}
           </button>
         </div>
+      </div>
+
+      {/* Row 2: Category Filter Horizontal Row (Now Full Width & Uncramped) */}
+      <div className="w-full mb-6">
+        <CategoryFilter
+          activeCategory={activeCategory}
+          onSelectCategory={setActiveCategory}
+          favoritesCount={favorites.length}
+        />
       </div>
 
       {/* Zalgo controls when relevant */}

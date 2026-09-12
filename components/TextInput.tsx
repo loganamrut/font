@@ -10,17 +10,17 @@ interface TextInputProps {
 }
 
 const SAMPLE_TEXTS = [
-  "Hello World",
+  "Your Text Here",
   "Aesthetic Vibes",
-  "Living my best life ✨",
-  "Stay Humble & Hungry",
+  "Vintage Script",
   "GamerTag_99",
+  "Living my best life ✨",
 ];
 
 export default function TextInput({
   value,
   onChange,
-  placeholder = "Type or paste your text here...",
+  placeholder = "Your Text Here...",
   onClear,
 }: TextInputProps) {
   return (
@@ -32,7 +32,7 @@ export default function TextInput({
           placeholder={placeholder}
           rows={3}
           aria-label="Input text to transform"
-          className="w-full px-4 pt-4 pb-12 sm:pb-4 text-base sm:text-lg md:text-xl bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none resize-y min-h-[90px] font-normal leading-relaxed"
+          className="w-full px-5 pt-4 pb-12 sm:pb-4 text-base sm:text-lg md:text-xl bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none resize-y min-h-[95px] font-normal leading-relaxed rounded-t-2xl"
         />
 
         {/* Clear Button */}
@@ -51,7 +51,7 @@ export default function TextInput({
         )}
 
         {/* Sample text suggestions below input */}
-        <div className="px-4 py-2 bg-slate-50/80 dark:bg-slate-900/80 rounded-b-2xl border-t border-slate-100 dark:border-slate-800 flex items-center gap-2 overflow-x-auto scrollbar-thin">
+        <div className="px-4 py-2.5 bg-white dark:bg-slate-900 rounded-b-2xl border-t border-slate-100 dark:border-slate-800 flex items-center gap-2 overflow-x-auto scrollbar-thin">
           <span className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 shrink-0 flex items-center gap-1">
             <Sparkles className="w-3 h-3 text-amber-500" />
             <span>Try sample:</span>
@@ -61,7 +61,7 @@ export default function TextInput({
               key={sample}
               type="button"
               onClick={() => onChange(sample)}
-              className="shrink-0 text-xs px-2.5 py-0.5 rounded-full bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:border-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+              className="shrink-0 text-xs px-3 py-1 rounded-full bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:border-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
             >
               {sample}
             </button>

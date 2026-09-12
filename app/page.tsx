@@ -10,7 +10,7 @@ export default function HomePage() {
   const faqSchema = generateFAQSchema(DEFAULT_FAQS);
 
   return (
-    <div className="w-full flex flex-col items-center">
+    <div className="w-full flex flex-col items-center bg-white dark:bg-slate-950">
       {/* FAQ Schema */}
       <script
         type="application/ld+json"
@@ -27,8 +27,8 @@ export default function HomePage() {
         </p>
       </section>
 
-      {/* Immediate Interactive Generator */}
-      <FontGenerator defaultCategory="popular" />
+      {/* Immediate Interactive Generator with default text "Your Text Here" */}
+      <FontGenerator defaultCategory="popular" initialText="Your Text Here" />
 
       {/* Interactive Examples Gallery */}
       <ExamplesSection />
