@@ -60,27 +60,27 @@ export default function SEOContent() {
               <tr>
                 <td className="p-3 font-semibold text-slate-900 dark:text-slate-100">Instagram</td>
                 <td className="p-3">Bio, Captions, Comments, Story Text</td>
-                <td className="p-3 text-slate-500 dark:text-slate-400">Full support. Usernames must remain alphanumeric ASCII.</td>
+                <td className="p-3 text-slate-600 dark:text-slate-300">Full support. Usernames must remain alphanumeric ASCII.</td>
               </tr>
               <tr>
                 <td className="p-3 font-semibold text-slate-900 dark:text-slate-100">TikTok</td>
                 <td className="p-3">Account Bio, Video Descriptions, Comments</td>
-                <td className="p-3 text-slate-500 dark:text-slate-400">Supported across iOS and Android mobile applications.</td>
+                <td className="p-3 text-slate-600 dark:text-slate-300">Supported across iOS and Android mobile applications.</td>
               </tr>
               <tr>
                 <td className="p-3 font-semibold text-slate-900 dark:text-slate-100">X (Twitter)</td>
                 <td className="p-3">Display Name, Tweets, Bio, Direct Messages</td>
-                <td className="p-3 text-slate-500 dark:text-slate-400">Handles must remain standard ASCII; display names support Unicode.</td>
+                <td className="p-3 text-slate-600 dark:text-slate-300">Handles must remain standard ASCII; display names support Unicode.</td>
               </tr>
               <tr>
                 <td className="p-3 font-semibold text-slate-900 dark:text-slate-100">Discord</td>
                 <td className="p-3">Server Nicknames, About Me Bio, Chat Messages</td>
-                <td className="p-3 text-slate-500 dark:text-slate-400">Combines seamlessly with Discord Markdown syntax.</td>
+                <td className="p-3 text-slate-600 dark:text-slate-300">Combines seamlessly with Discord Markdown syntax.</td>
               </tr>
               <tr>
                 <td className="p-3 font-semibold text-slate-900 dark:text-slate-100">Gaming (Roblox, Steam)</td>
                 <td className="p-3">Profile Bios, Clan Descriptions, Statuses</td>
-                <td className="p-3 text-slate-500 dark:text-slate-400">Some game engines censor complex combining marks; test in chat.</td>
+                <td className="p-3 text-slate-600 dark:text-slate-300">Some game engines censor complex combining marks; test in chat.</td>
               </tr>
             </tbody>
           </table>
@@ -111,11 +111,11 @@ export default function SEOContent() {
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
           <div className="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2">
-            <h4 className="font-semibold text-sm text-slate-900 dark:text-slate-100 flex items-center gap-1.5">
+            <h3 className="font-semibold text-sm text-slate-900 dark:text-slate-100 flex items-center gap-1.5">
               <Check className="w-4 h-4 text-emerald-600" />
               <span>Recommended Uses</span>
-            </h4>
-            <ul className="text-xs text-slate-500 dark:text-slate-400 space-y-1 list-disc list-inside">
+            </h3>
+            <ul className="text-xs text-slate-600 dark:text-slate-300 space-y-1 list-disc list-inside">
               <li>Decorative emphasis on 1–3 key words</li>
               <li>Short titles or aesthetic profile headers</li>
               <li>Signature quotes in Instagram or TikTok bios</li>
@@ -123,11 +123,11 @@ export default function SEOContent() {
             </ul>
           </div>
           <div className="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2">
-            <h4 className="font-semibold text-sm text-slate-900 dark:text-slate-100 flex items-center gap-1.5">
+            <h3 className="font-semibold text-sm text-slate-900 dark:text-slate-100 flex items-center gap-1.5">
               <Info className="w-4 h-4 text-amber-500" />
               <span>Things to Avoid</span>
-            </h4>
-            <ul className="text-xs text-slate-500 dark:text-slate-400 space-y-1 list-disc list-inside">
+            </h3>
+            <ul className="text-xs text-slate-600 dark:text-slate-300 space-y-1 list-disc list-inside">
               <li>Converting entire paragraphs or articles</li>
               <li>Using fancy text for critical contact information</li>
               <li>Overloading text with excessive Zalgo glitch marks</li>

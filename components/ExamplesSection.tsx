@@ -36,7 +36,7 @@ export default function ExamplesSection() {
         <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
           Popular Fancy Text Styles
         </h2>
-        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-lg mx-auto">
+        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-lg mx-auto">
           Click any example below to instantly copy it to your clipboard.
         </p>
       </div>
@@ -48,7 +48,7 @@ export default function ExamplesSection() {
             className="flex items-center justify-between p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm hover:border-indigo-300 dark:hover:border-indigo-800 transition-all"
           >
             <div className="min-w-0 pr-3">
-              <span className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 block uppercase tracking-wider">
+              <span className="text-[11px] font-semibold text-slate-600 dark:text-slate-400 block uppercase tracking-wider">
                 {ex.name}
               </span>
               <p className="text-base sm:text-lg text-slate-900 dark:text-slate-100 font-medium truncate mt-0.5">

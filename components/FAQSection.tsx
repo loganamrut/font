@@ -35,7 +35,7 @@ export default function FAQSection({
           {title}
         </h2>
         {subtitle && (
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-lg mx-auto">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-lg mx-auto">
             {subtitle}
           </p>
         )}

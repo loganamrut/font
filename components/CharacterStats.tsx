@@ -19,7 +19,7 @@ export default function CharacterStats({
   const isOverLimit = remaining !== null && remaining < 0;
 
   return (
-    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium py-1.5 px-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-semibold py-1.5 px-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
       <div className="flex items-center gap-1.5">
         <span className="text-slate-900 dark:text-slate-100 font-bold">{charsCount}</span>
         <span>characters</span>

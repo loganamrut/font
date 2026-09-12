@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { FontStyleDefinition } from "@/lib/unicode/engine";
 import StyleCard from "./StyleCard";
 import { ChevronDown, Sparkles } from "lucide-react";
@@ -8,7 +8,7 @@ import { ChevronDown, Sparkles } from "lucide-react";
 interface StyleGridProps {
   styles: FontStyleDefinition[];
   inputText: string;
-  resultsMap: Map<string, string>;
+  resultsMap?: Map<string, string>;
   favorites: string[];
   onToggleFavorite: (id: string) => void;
   defaultVisibleCount?: number;
@@ -17,35 +17,50 @@ interface StyleGridProps {
 export default function StyleGrid({
   styles,
   inputText,
-  resultsMap,
   favorites,
   onToggleFavorite,
   defaultVisibleCount = 36,
 }: StyleGridProps) {
   const [showAll, setShowAll] = useState(false);
 
+  const displayedStyles = showAll ? styles : styles.slice(0, defaultVisibleCount);
+  const remainingCount = styles.length - defaultVisibleCount;
+
+  // Compute transformations only for visible styles to maximize performance and prevent main thread lag
+  const localResultsMap = useMemo(() => {
+    const map = new Map<string, string>();
+    const textToTransform = inputText || "Your Text Here";
+
+    for (const style of displayedStyles) {
+      if (style.id === "zalgo-glitch") {
+        map.set(style.id, style.transform(textToTransform, { intensity: "medium" }));
+      } else {
+        map.set(style.id, style.transform(textToTransform));
+      }
+    }
+
+    return map;
+  }, [inputText, displayedStyles]);
+
   if (styles.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center p-12 text-center bg-white dark:bg-slate-900 rounded-2xl border border-dashed border-slate-300 dark:border-slate-800 my-4">
         <Sparkles className="w-8 h-8 text-slate-400 mb-3" />
-        <h4 className="text-base font-semibold text-slate-700 dark:text-slate-200">
+        <p role="heading" aria-level={3} className="text-base font-semibold text-slate-700 dark:text-slate-200">
           No matching font styles found
-        </h4>
-        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-sm">
+        </p>
+        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-sm">
           Try a different search keyword or switch category to discover more styles.
         </p>
       </div>
     );
   }
 
-  const displayedStyles = showAll ? styles : styles.slice(0, defaultVisibleCount);
-  const remainingCount = styles.length - defaultVisibleCount;
-
   return (
     <div className="w-full">
       <div className="flex flex-col gap-2.5 sm:gap-3 w-full">
         {displayedStyles.map((style) => {
-          const transformed = resultsMap.get(style.id) || inputText;
+          const transformed = localResultsMap.get(style.id) || inputText;
           const isFav = favorites.includes(style.id);
 
           return (

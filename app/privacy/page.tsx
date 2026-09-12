@@ -29,7 +29,7 @@ export default function PrivacyPage() {
         <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
           Privacy Policy
         </h1>
-        <p className="text-xs text-slate-400 dark:text-slate-500">
+        <p className="text-xs text-slate-600 dark:text-slate-400 font-medium">
           Last Updated: September 2026 • Effective Immediately
         </p>
       </header>
@@ -67,7 +67,7 @@ export default function PrivacyPage() {
           <li><strong>Favorite Styles (<code>fontgen_favorites_v1</code>):</strong> Remembers which style cards you marked with a heart so they appear in your Favorites tab.</li>
           <li><strong>Cookie & Privacy Choice (<code>fontgen_cookie_consent</code>):</strong> Remembers your consent decision (Essential Only vs. Accepted) to respect your privacy preferences.</li>
         </ul>
-        <p className="text-xs text-slate-500 dark:text-slate-400">
+        <p className="text-xs text-slate-600 dark:text-slate-400">
           This preference data remains stored locally on your device and is never synchronized to any server. If you clear your browser cookies or storage, these preferences will reset to default.
         </p>
       </section>

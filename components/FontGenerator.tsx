@@ -63,22 +63,6 @@ export default function FontGenerator({
     });
   }, [activeCategory, searchQuery, favorites]);
 
-  // Compute transformations for visible styles
-  const resultsMap = useMemo(() => {
-    const map = new Map<string, string>();
-    const textToTransform = inputText || "Your Text Here";
-
-    for (const style of filteredStyles) {
-      if (style.id === "zalgo-glitch") {
-        map.set(style.id, style.transform(textToTransform, { intensity: "medium" }));
-      } else {
-        map.set(style.id, style.transform(textToTransform));
-      }
-    }
-
-    return map;
-  }, [inputText, filteredStyles]);
-
   return (
     <section className="w-full max-w-5xl mx-auto px-4 sm:px-6 py-4" id="generator">
       {/* 1. Big Clean Input Box with built-in stats & quick samples */}
@@ -112,7 +96,6 @@ export default function FontGenerator({
       <StyleGrid
         styles={filteredStyles}
         inputText={inputText}
-        resultsMap={resultsMap}
         favorites={favorites}
         onToggleFavorite={handleToggleFavorite}
       />

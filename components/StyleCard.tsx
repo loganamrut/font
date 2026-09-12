@@ -48,17 +48,17 @@ export default function StyleCard({
       {/* Left Area: Style Name and Main Text Line */}
       <div className="flex-1 min-w-0 pr-2">
         <div className="flex items-center gap-2 mb-0.5">
-          <span className="text-[11px] font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+          <span className="text-[11px] font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
             {style.name}
           </span>
           {style.cat && (
-            <span className="hidden sm:inline-block text-[10px] text-slate-400 dark:text-slate-500 font-normal">
+            <span className="hidden sm:inline-block text-[10px] text-slate-600 dark:text-slate-400 font-medium">
               • {style.cat}
             </span>
           )}
           {style.isPopular && (
-            <span className="inline-flex items-center gap-0.5 text-[10px] font-medium px-1.5 py-0.2 rounded bg-amber-50 text-amber-700 dark:bg-amber-950/60 dark:text-amber-300 border border-amber-200/50">
-              <Sparkles className="w-2.5 h-2.5 text-amber-500" />
+            <span className="inline-flex items-center gap-0.5 text-[10px] font-semibold px-1.5 py-0.2 rounded bg-amber-50 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 border border-amber-200/50">
+              <Sparkles className="w-2.5 h-2.5 text-amber-600" />
               <span>Popular</span>
             </span>
           )}
@@ -79,7 +79,7 @@ export default function StyleCard({
           className={`p-2 rounded-lg text-xs transition-colors ${
             isFavorite
               ? "text-rose-500 bg-rose-50 dark:bg-rose-950/40"
-              : "text-slate-400 hover:text-rose-500 hover:bg-slate-50 dark:hover:bg-slate-800"
+              : "text-slate-500 hover:text-rose-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
           }`}
           title={isFavorite ? "Favorited" : "Add to favorites"}
         >
@@ -91,7 +91,7 @@ export default function StyleCard({
           type="button"
           onClick={handleShare}
           aria-label={`Share ${style.name}`}
-          className="p-2 rounded-lg text-slate-400 hover:text-indigo-600 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+          className="p-2 rounded-lg text-slate-500 hover:text-indigo-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800 transition-colors"
           title="Share style"
         >
           <Share2 className="w-4 h-4" />

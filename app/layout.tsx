@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -87,8 +88,20 @@ export default function RootLayout({
             `,
           }}
         />
-        {/* Google Analytics 4 (GA4) with Consent Mode v2 */}
         <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
+        />
+      </head>
+      <body className="min-h-screen flex flex-col antialiased bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-50 selection:bg-indigo-500 selection:text-white">
+        {/* Google Analytics 4 (GA4) with Consent Mode v2 loaded non-blockingly */}
+        <Script
+          id="google-consent-mode"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
@@ -114,20 +127,12 @@ export default function RootLayout({
             `,
           }}
         />
-        <script
-          async
+        <Script
+          id="gtag-base"
+          strategy="afterInteractive"
           src="https://www.googletagmanager.com/gtag/js?id=G-HT87NWEHNT"
         />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
-        />
-      </head>
-      <body className="min-h-screen flex flex-col antialiased bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-50 selection:bg-indigo-500 selection:text-white">
+
         <Header />
         <main className="flex-1 bg-white dark:bg-slate-950">{children}</main>
         <Footer />

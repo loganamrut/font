@@ -45,7 +45,7 @@ export default function TextInput({
               type="button"
               onClick={onClear}
               aria-label="Clear input text"
-              className="flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 transition-colors"
+              className="flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-700 hover:text-slate-900 dark:text-slate-200 dark:hover:text-white bg-slate-200/80 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 transition-colors"
             >
               <X className="w-3.5 h-3.5" />
               <span>Clear</span>
@@ -54,9 +54,9 @@ export default function TextInput({
         )}
 
         {/* Bottom bar: Stats + Sample suggestions */}
-        <div className="px-4 py-2 bg-slate-50/70 dark:bg-slate-900/80 rounded-b-2xl border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-3 text-xs">
+        <div className="px-4 py-2 bg-slate-50/90 dark:bg-slate-900/80 rounded-b-2xl border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-3 text-xs">
           {/* Live character and word count */}
-          <div className="flex items-center gap-2 text-slate-400 dark:text-slate-500 font-medium shrink-0">
+          <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400 font-semibold shrink-0">
             <span>{charCount} chars</span>
             <span>•</span>
             <span>{wordCount} {wordCount === 1 ? "word" : "words"}</span>
@@ -64,7 +64,7 @@ export default function TextInput({
 
           {/* Sample quick chips */}
           <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-thin py-0.5">
-            <span className="text-[11px] font-medium text-slate-400 shrink-0 hidden sm:inline-block">
+            <span className="text-[11px] font-semibold text-slate-600 dark:text-slate-400 shrink-0 hidden sm:inline-block">
               Try:
             </span>
             {SAMPLE_TEXTS.map((sample) => (
@@ -72,7 +72,7 @@ export default function TextInput({
                 key={sample}
                 type="button"
                 onClick={() => onChange(sample)}
-                className="shrink-0 text-[11px] px-2.5 py-0.5 rounded-full bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700 hover:border-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                className="shrink-0 text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-300 dark:border-slate-700 hover:border-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
               >
                 {sample}
               </button>

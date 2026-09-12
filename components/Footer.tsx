@@ -11,10 +11,10 @@ export default function Footer() {
             <Link href="/" className="inline-block text-xl font-black tracking-tight text-slate-900 dark:text-white">
               FontGen<span className="text-indigo-600 dark:text-indigo-400">.dev</span>
             </Link>
-            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
               Free online font and text generator for stylish, fancy, and Unicode copy-and-paste text across social media, apps, and games.
             </p>
-            <div className="flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400 font-medium">
+            <div className="flex items-center gap-1.5 text-xs text-emerald-700 dark:text-emerald-400 font-semibold">
               <ShieldCheck className="w-4 h-4 shrink-0" />
               <span>100% Client-Side Privacy</span>
             </div>
@@ -22,18 +22,13 @@ export default function Footer() {
 
           {/* Popular Text Styles */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-200 mb-3">
+            <p role="heading" aria-level={2} className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-200 mb-3">
               Popular Styles
-            </h4>
+            </p>
             <ul className="space-y-2 text-xs sm:text-sm">
               <li>
                 <Link href="/bold-font-generator" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
                   Bold Text Generator
-                </Link>
-              </li>
-              <li>
-                <Link href="/italic-font-generator" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
-                  Italic Font Generator
                 </Link>
               </li>
               <li>
@@ -43,12 +38,12 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/gothic-font-generator" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
-                  Gothic & Fraktur Generator
+                  Gothic Text Generator
                 </Link>
               </li>
               <li>
-                <Link href="/bubble-font-generator" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
-                  Bubble Text Generator
+                <Link href="/fancy-font-generator" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                  Fancy Text Generator
                 </Link>
               </li>
               <li>
@@ -61,9 +56,9 @@ export default function Footer() {
 
           {/* Aesthetic & Fun Text */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-200 mb-3">
+            <p role="heading" aria-level={2} className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-200 mb-3">
               Aesthetic & Social
-            </h4>
+            </p>
             <ul className="space-y-2 text-xs sm:text-sm">
               <li>
                 <Link href="/fancy-font-generator" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
@@ -105,9 +100,9 @@ export default function Footer() {
 
           {/* Technical & Legal */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-200 mb-3">
+            <p role="heading" aria-level={2} className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-200 mb-3">
               Information & Privacy
-            </h4>
+            </p>
             <ul className="space-y-2 text-xs sm:text-sm">
               <li>
                 <Link href="/unicode-text-generator" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
@@ -134,7 +129,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom copyright line */}
-        <div className="pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 dark:text-slate-500">
+        <div className="pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-600 dark:text-slate-400 font-medium">
           <p>© {new Date().getFullYear()} FontGen.dev. All rights reserved. Unicode™ is a trademark of Unicode, Inc.</p>
           <p className="flex items-center gap-1">
             Built with pure Unicode mathematical typography

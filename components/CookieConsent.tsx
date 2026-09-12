@@ -54,9 +54,9 @@ export default function CookieConsent() {
         </div>
 
         <div className="flex-1 min-w-0">
-          <h4 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+          <p role="heading" aria-level={2} className="text-sm font-semibold text-slate-900 dark:text-slate-100">
             Cookie & Privacy Choices
-          </h4>
+          </p>
           <p className="mt-1 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
             We use privacy-friendly analytics to track traffic and improve fonts. Your text is processed 100% locally in your browser. See our{" "}
             <Link

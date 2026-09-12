@@ -119,7 +119,7 @@ export default function RelatedGenerators({
           {title}
         </h2>
         {subtitle && (
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-lg mx-auto">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-lg mx-auto">
             {subtitle}
           </p>
         )}
@@ -137,9 +137,9 @@ export default function RelatedGenerators({
                 <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
                   {tool.name}
                 </h3>
-                <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-indigo-600 group-hover:translate-x-0.5 transition-all" />
+                <ArrowRight className="w-3.5 h-3.5 text-slate-500 group-hover:text-indigo-600 group-hover:translate-x-0.5 transition-all" />
               </div>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 line-clamp-2">
+              <p className="text-xs text-slate-600 dark:text-slate-400 mb-3 line-clamp-2">
                 {tool.description}
               </p>
             </div>
