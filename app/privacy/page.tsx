@@ -57,26 +57,35 @@ export default function PrivacyPage() {
 
       <section className="space-y-4">
         <h2 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
-          2. Local Storage Usage
+          2. Local Storage & Cookies
         </h2>
         <p className="text-sm">
-          FontGen utilizes your browser&apos;s native <code>localStorage</code> API for two optional, non-identifying client preferences:
+          FontGen utilizes your browser&apos;s native <code>localStorage</code> API for essential client preferences:
         </p>
         <ul className="space-y-2 text-sm list-disc list-inside">
           <li><strong>Color Theme (<code>fontgen_theme</code>):</strong> Remembers whether you selected Light Mode or Dark Mode.</li>
           <li><strong>Favorite Styles (<code>fontgen_favorites_v1</code>):</strong> Remembers which style cards you marked with a heart so they appear in your Favorites tab.</li>
+          <li><strong>Cookie & Privacy Choice (<code>fontgen_cookie_consent</code>):</strong> Remembers your consent decision (Essential Only vs. Accepted) to respect your privacy preferences.</li>
         </ul>
         <p className="text-xs text-slate-500 dark:text-slate-400">
-          This data remains stored locally on your device and is never synchronized to any server. If you clear your browser cookies or storage, these preferences will simply reset to default.
+          This preference data remains stored locally on your device and is never synchronized to any server. If you clear your browser cookies or storage, these preferences will reset to default.
         </p>
       </section>
 
       <section className="space-y-4">
         <h2 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
-          3. Analytics & Infrastructure
+          3. Analytics & Google Consent Mode v2
         </h2>
         <p className="text-sm">
-          Like most static web applications, standard server access logs (such as request IP address, user agent, and requested page URL) may be processed by hosting infrastructure (e.g. Vercel / Cloudflare) to monitor uptime and mitigate denial-of-service attacks. We strictly ensure that <strong>user-entered text is never included in URL query strings or transmitted as analytics parameters</strong>.
+          We use Google Analytics 4 (GA4) with <strong>Google Consent Mode v2</strong> to analyze overall aggregate site performance and visitor trends. By default:
+        </p>
+        <ul className="space-y-2 text-sm list-disc list-inside">
+          <li>Analytics storage and advertising cookies remain <strong>strictly disabled (denied)</strong> until you explicitly grant permission via our cookie banner.</li>
+          <li>Advertising data, ad personalization, and user tracking across 3rd-party sites are permanently turned off.</li>
+          <li><strong>User-generated font inputs and typed text are strictly excluded</strong> from all analytics reporting. Keystrokes never leave your browser.</li>
+        </ul>
+        <p className="text-sm">
+          You can change your consent choices at any time by clearing your browser cookies or local storage.
         </p>
       </section>
 

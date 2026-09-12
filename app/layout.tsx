@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
+import CookieConsent from "@/components/CookieConsent";
 import { generateWebApplicationSchema, generateWebSiteSchema } from "@/lib/seo/schema";
 
 export const metadata: Metadata = {
@@ -85,6 +87,37 @@ export default function RootLayout({
             `,
           }}
         />
+        {/* Google Analytics 4 (GA4) with Consent Mode v2 */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+
+              let savedConsent = null;
+              try {
+                savedConsent = localStorage.getItem('fontgen_cookie_consent');
+              } catch (e) {}
+
+              gtag('consent', 'default', {
+                'analytics_storage': savedConsent === 'accepted' ? 'granted' : 'denied',
+                'ad_storage': 'denied',
+                'ad_user_data': 'denied',
+                'ad_personalization': 'denied'
+              });
+
+              gtag('js', new Date());
+              gtag('config', 'G-HT87NWEHNT', {
+                page_path: window.location.pathname,
+                send_page_view: true
+              });
+            `,
+          }}
+        />
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-HT87NWEHNT"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
@@ -98,6 +131,8 @@ export default function RootLayout({
         <Header />
         <main className="flex-1 bg-white dark:bg-slate-950">{children}</main>
         <Footer />
+        <GoogleAnalytics gaId="G-HT87NWEHNT" />
+        <CookieConsent />
       </body>
     </html>
   );
