@@ -135,3 +135,65 @@ export function generateFAQSchema(faqs: { question: string; answer: string }[]) 
     })),
   };
 }
+
+export function generateHowToSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to Use the Online Font Generator to Copy and Paste Fancy Text",
+    description:
+      "Step-by-step visual and interactive guide on converting standard text into fancy Unicode fonts for Instagram, TikTok, Discord, and messaging apps.",
+    image: {
+      "@type": "ImageObject",
+      url: `${SITE_URL}/images/how-font-generator-works.jpg`,
+      width: 1376,
+      height: 768,
+      caption: "How FontGen Online Font Generator Works Infographic",
+    },
+    totalTime: "PT1M",
+    estimatedCost: {
+      "@type": "MonetaryAmount",
+      currency: "USD",
+      value: "0",
+    },
+    supply: [
+      {
+        "@type": "HowToSupply",
+        name: "Standard keyboard or text input",
+      },
+    ],
+    tool: [
+      {
+        "@type": "HowToTool",
+        name: "FontGen Online Font Generator",
+      },
+    ],
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "Type or Paste Plain Text",
+        text: "Type words, phrases, or names into the input box at the top of FontGen. The generator processes each character instantly as you type.",
+        url: `${SITE_URL}/#generator`,
+        image: `${SITE_URL}/images/how-font-generator-works.jpg`,
+      },
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "Select Your Favorite Unicode Font Style",
+        text: "Browse more than 240+ font styles including Bold, Cursive Script, Gothic Fraktur, Aesthetic Fullwidth, Bubble text, and Glitch Zalgo. Filter by category or search by style name.",
+        url: `${SITE_URL}/#generator`,
+        image: `${SITE_URL}/images/how-font-generator-works.jpg`,
+      },
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "Copy with One Click and Paste Anywhere",
+        text: "Click the 'Copy' button beside your desired font style to copy it directly to your clipboard. Paste your stylish text into Instagram bios, TikTok captions, Discord servers, gaming handles, or SMS messages.",
+        url: `${SITE_URL}/#generator`,
+        image: `${SITE_URL}/images/how-font-generator-works.jpg`,
+      },
+    ],
+  };
+}
+
