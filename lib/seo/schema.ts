@@ -197,3 +197,67 @@ export function generateHowToSchema() {
   };
 }
 
+export function generateVideoObjectSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    name: "How FontGen Online Font Generator Works (3-Step Video Guide)",
+    description:
+      "Watch how to quickly convert plain text into fancy Unicode fonts and stylish copy-and-paste text for Instagram, TikTok, Discord, and messaging apps in this step-by-step video guide.",
+    thumbnailUrl: [
+      `${SITE_URL}/videos/how-it-works-poster.jpg`,
+      `${SITE_URL}/images/how-font-generator-works.jpg`,
+    ],
+    uploadDate: "2026-09-18T00:00:00+00:00",
+    duration: "PT12S",
+    contentUrl: `${SITE_URL}/videos/how-font-generator-works.mp4`,
+    embedUrl: `${SITE_URL}/#video-guide`,
+    publisher: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      url: `${SITE_URL}/`,
+      logo: {
+        "@type": "ImageObject",
+        url: `${SITE_URL}/icon-192x192.png`,
+        width: 192,
+        height: 192,
+      },
+    },
+    potentialAction: {
+      "@type": "SeekToAction",
+      target: `${SITE_URL}/#video-guide?t={seek_to_second_number}`,
+      "startOffset-input": "required name=seek_to_second_number",
+    },
+    hasPart: [
+      {
+        "@type": "Clip",
+        name: "Step 1: Type or Paste Plain Text",
+        startOffset: 0,
+        endOffset: 3,
+        url: `${SITE_URL}/#video-step-1`,
+      },
+      {
+        "@type": "Clip",
+        name: "Step 2: Instant 240+ Unicode Font Transformations",
+        startOffset: 3,
+        endOffset: 7,
+        url: `${SITE_URL}/#video-step-2`,
+      },
+      {
+        "@type": "Clip",
+        name: "Step 3: One-Click Copy & Paste to Social Media",
+        startOffset: 7,
+        endOffset: 10,
+        url: `${SITE_URL}/#video-step-3`,
+      },
+      {
+        "@type": "Clip",
+        name: "Free & Private Web Typography Guarantee",
+        startOffset: 10,
+        endOffset: 12,
+        url: `${SITE_URL}/#video-step-4`,
+      },
+    ],
+  };
+}
+

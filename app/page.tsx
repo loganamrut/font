@@ -1,19 +1,25 @@
 import FontGenerator from "@/components/FontGenerator";
 import ExamplesSection from "@/components/ExamplesSection";
 import HowItWorks from "@/components/HowItWorks";
+import VideoGuide from "@/components/VideoGuide";
 import SEOContent from "@/components/SEOContent";
 import FAQSection from "@/components/FAQSection";
 import RelatedGenerators from "@/components/RelatedGenerators";
 import { DEFAULT_FAQS } from "@/lib/seo/faqs";
-import { generateFAQSchema, generateHowToSchema } from "@/lib/seo/schema";
+import {
+  generateFAQSchema,
+  generateHowToSchema,
+  generateVideoObjectSchema,
+} from "@/lib/seo/schema";
 
 export default function HomePage() {
   const faqSchema = generateFAQSchema(DEFAULT_FAQS);
   const howToSchema = generateHowToSchema();
+  const videoSchema = generateVideoObjectSchema();
 
   return (
     <div className="w-full flex flex-col items-center bg-white dark:bg-slate-950">
-      {/* FAQ & HowTo Structured Data Schemas */}
+      {/* FAQ, HowTo & VideoObject Structured Data Schemas */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
@@ -21,6 +27,10 @@ export default function HomePage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(videoSchema) }}
       />
 
       {/* Hero Section with H1 - Above the fold */}
@@ -42,6 +52,9 @@ export default function HomePage() {
 
       {/* Visual Infographic & Step-by-Step How It Works Guide */}
       <HowItWorks />
+
+      {/* Video Demonstration & Interactive Key Moments */}
+      <VideoGuide />
 
       {/* Deep Informational SEO Content & Technical Guide */}
       <SEOContent />
