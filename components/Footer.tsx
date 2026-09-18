@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ShieldCheck, Sparkles, Heart, Share2 } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 import { SocialIconsRow } from "./SocialLinks";
 
 export default function Footer() {
@@ -136,21 +136,8 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Social Media & Community Bar */}
-        <div className="py-6 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-200">
-              Official Social Profiles:
-            </span>
-            <span className="text-xs text-slate-500 dark:text-slate-400 hidden sm:inline">
-              Join our community across YouTube, Facebook, GitHub, Medium, Quora, Reddit &amp; Pinterest
-            </span>
-          </div>
-          <SocialIconsRow />
-        </div>
-
         {/* Bottom copyright line */}
-        <div className="pt-6 border-t border-slate-200/80 dark:border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-600 dark:text-slate-400 font-medium">
+        <div className="pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-600 dark:text-slate-400 font-medium">
           <p>© {new Date().getFullYear()} FontGen.dev. All rights reserved. Unicode™ is a trademark of Unicode, Inc.</p>
           <p className="flex items-center gap-1">
             Built with pure Unicode mathematical typography
