@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ShieldCheck } from "lucide-react";
+import Logo from "./Logo";
 import { SocialIconsRow } from "./SocialLinks";
 
 export default function Footer() {
@@ -9,9 +10,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
           {/* Brand Info */}
           <div className="md:col-span-1 space-y-4">
-            <Link href="/" className="inline-block text-xl font-black tracking-tight text-slate-900 dark:text-white">
-              FontGen<span className="text-indigo-600 dark:text-indigo-400">.dev</span>
-            </Link>
+            <Logo size="md" asLink={true} />
             <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
               Free online font and text generator for stylish, fancy, and Unicode copy-and-paste text across social media, apps, and games.
             </p>

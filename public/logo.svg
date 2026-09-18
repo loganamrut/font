@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100" width="400" height="100" fill="none">
+  <defs>
+    <!-- Background squircle gradient -->
+    <linearGradient id="logo-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5" />
+      <stop offset="50%" stop-color="#6366f1" />
+      <stop offset="100%" stop-color="#7c3aed" />
+    </linearGradient>
+    
+    <!-- Wordmark text gradient -->
+    <linearGradient id="gen-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4f46e5" />
+      <stop offset="50%" stop-color="#7c3aed" />
+      <stop offset="100%" stop-color="#ec4899" />
+    </linearGradient>
+
+    <!-- Sparkle accent gradient -->
+    <linearGradient id="sparkle-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fde047" />
+      <stop offset="100%" stop-color="#f59e0b" />
+    </linearGradient>
+
+    <!-- Inner stroke glow -->
+    <linearGradient id="stroke-glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.5" />
+      <stop offset="100%" stop-color="#818cf8" stop-opacity="0.1" />
+    </linearGradient>
+
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#4f46e5" flood-opacity="0.25" />
+    </filter>
+  </defs>
+
+  <!-- Logomark Icon -->
+  <g transform="translate(6, 6)" filter="url(#shadow)">
+    <!-- Base squircle -->
+    <rect width="88" height="88" rx="24" fill="url(#logo-bg)" />
+    <!-- Inner border -->
+    <rect x="2" y="2" width="84" height="84" rx="22" stroke="url(#stroke-glow)" stroke-width="2.5" />
+
+    <!-- Modern 'F' Glyph -->
+    <rect x="24" y="22" width="13" height="46" rx="6.5" fill="#ffffff" />
+    <path d="M 30 22 L 62 22 C 65.5 22 68 24.5 68 28 C 68 31.5 65.5 34 62 34 L 30 34 Z" fill="#ffffff" />
+    <path d="M 30 40 L 54 40 C 57.5 40 60 42.5 60 46 C 60 49.5 57.5 52 54 52 L 30 52 Z" fill="#ffffff" />
+
+    <!-- 4-point Transformation Sparkle -->
+    <path d="M 70 16 Q 70 23 77 23 Q 70 23 70 30 Q 70 23 63 23 Q 70 23 70 16 Z" fill="url(#sparkle-grad)" />
+    <!-- Balance dot -->
+    <circle cx="70" cy="46" r="3" fill="#a5b4fc" />
+  </g>
+
+  <!-- Wordmark 'FontGen' -->
+  <text x="114" y="62" font-family="system-ui, -apple-system, 'Inter', sans-serif" font-size="44" font-weight="900" letter-spacing="-1.5">
+    <tspan fill="#0f172a">Font</tspan><tspan fill="url(#gen-grad)">Gen</tspan>
+  </text>
+
+  <!-- Tech badge '.dev' -->
+  <g transform="translate(305, 34)">
+    <rect width="64" height="30" rx="8" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1.5" />
+    <text x="32" y="20" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="800" fill="#4338ca" text-anchor="middle">.DEV</text>
+  </g>
+</svg>

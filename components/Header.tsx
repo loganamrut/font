@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { Sun, Moon, Menu, X, Type } from "lucide-react";
+import { Sun, Moon, Menu, X } from "lucide-react";
+import Logo from "./Logo";
 
 export default function Header() {
   const [theme, setTheme] = useState<"light" | "dark">("light");
@@ -35,17 +36,8 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-40 w-full border-b border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-950/90 backdrop-blur-md">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 group">
-          <div className="w-9 h-9 rounded-xl bg-indigo-600 dark:bg-indigo-500 flex items-center justify-center text-white shadow-sm shadow-indigo-500/20 group-hover:scale-105 transition-transform">
-            <Type className="w-5 h-5 font-bold" />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-              FontGen<span className="text-indigo-600 dark:text-indigo-400">.dev</span>
-            </span>
-          </div>
-        </Link>
+        {/* Modern Brand Logo */}
+        <Logo size="md" asLink={true} />
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600 dark:text-slate-300">
