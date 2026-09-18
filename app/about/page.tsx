@@ -3,6 +3,7 @@ import Link from "next/link";
 import { constructMetadata } from "@/lib/seo/metadata";
 import { generateBreadcrumbSchema } from "@/lib/seo/schema";
 import { ShieldCheck, Zap, Type, Globe, Check } from "lucide-react";
+import { SocialCommunityGrid } from "@/components/SocialLinks";
 
 export const metadata: Metadata = constructMetadata({
   title: "About FontGen - Our Mission, Technology & Privacy Architecture",
@@ -93,6 +94,16 @@ export default function AboutPage() {
             <span>The resulting string is formatted and prepared for immediate one-click copy to your system clipboard.</span>
           </li>
         </ul>
+      </section>
+
+      <section className="space-y-4">
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
+          Connect with FontGen
+        </h2>
+        <p className="text-sm text-slate-600 dark:text-slate-400">
+          Follow our official social media channels for web typography tutorials, Unicode tips, updates, and community discussions:
+        </p>
+        <SocialCommunityGrid />
       </section>
 
       <div className="pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">

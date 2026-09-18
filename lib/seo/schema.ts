@@ -5,6 +5,16 @@ function normalizeUrl(path: string = ""): string {
   return clean ? `${SITE_URL}/${clean}/` : `${SITE_URL}/`;
 }
 
+export const OFFICIAL_SOCIAL_PROFILES = [
+  "https://www.youtube.com/@FontGeneratordev",
+  "https://www.facebook.com/FontGeneratordev/",
+  "https://github.com/fontgeneratordev",
+  "https://medium.com/@fontgenerators",
+  "https://www.quora.com/profile/Font-Generator-3",
+  "https://www.reddit.com/user/fontgeneratordev/",
+  "https://www.pinterest.com/fontgeneratordev/",
+];
+
 export function generateWebApplicationSchema(
   name: string = "FontGen - Online Font & Fancy Text Generator",
   description: string = "Free online Unicode font generator to convert normal text into stylish bold, cursive, aesthetic, and cool text to copy and paste.",
@@ -49,6 +59,7 @@ export function generateWebApplicationSchema(
       "@type": "Organization",
       name: "FontGen Team",
       url: `${SITE_URL}/`,
+      sameAs: OFFICIAL_SOCIAL_PROFILES,
     },
   };
 }
@@ -69,10 +80,11 @@ export function generateWebSiteSchema() {
       url: `${SITE_URL}/`,
       logo: {
         "@type": "ImageObject",
-        url: `${SITE_URL}/icon`,
-        width: 32,
-        height: 32,
+        url: `${SITE_URL}/icon-192x192.png`,
+        width: 192,
+        height: 192,
       },
+      sameAs: OFFICIAL_SOCIAL_PROFILES,
     },
     potentialAction: {
       "@type": "SearchAction",
@@ -93,9 +105,9 @@ export function generateOrganizationSchema() {
     url: `${SITE_URL}/`,
     logo: {
       "@type": "ImageObject",
-      url: `${SITE_URL}/icon`,
-      width: 32,
-      height: 32,
+      url: `${SITE_URL}/icon-192x192.png`,
+      width: 192,
+      height: 192,
     },
     description:
       "FontGen creates free, privacy-first web typography tools allowing users to convert text into Unicode typographic symbols.",
@@ -105,6 +117,7 @@ export function generateOrganizationSchema() {
       "Typography",
       "Text Formatting",
     ],
+    sameAs: OFFICIAL_SOCIAL_PROFILES,
   };
 }
 
